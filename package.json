@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "the stardom game studios website",
   "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build needed for static site.'"
+  },
   "author": "Stardom Game Studios",
   "license": "MIT"
 }
