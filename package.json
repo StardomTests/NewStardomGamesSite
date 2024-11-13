@@ -1,11 +1,8 @@
 {
-  "name": "new-stardom-games",
+  "name": "stardom-game-studios",
   "version": "1.0.0",
-  "description": "the new stardom game studios website",
-  "main": "scripts.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "description": "the stardom game studios website",
+  "main": "index.html",
+  "author": "Stardom Game Studios",
+  "license": "MIT"
 }
