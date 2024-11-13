@@ -21,6 +21,7 @@
   <img src="https://raw.githubusercontent.com/jordan-trempert/media/main/stardom-logo%20(1).png">
   <br />
   <br />
+  <br />
   <center>
     <a href="#game-header">GAMES</a> | <a href="#social-header">SOCIALS</a> | <a href="#mod-header">MODS</a> | <a href="#app-header">APPS</a> | <a href="#tweets-header">TWEETS</a>
   </center>
@@ -42,9 +43,30 @@
   <center><h1 id="tweets-header">- TWEETS -</h1></center>
   <section id="tweets-section" class="content-section">
     <!-- Embed Tweets from @Stardom_Games -->
-    <a class="twitter-timeline" data-width="1200" data-height="440" data-theme="dark" href="https://twitter.com/Stardom_Games?ref_src=twsrc%5Etfw">Tweets by Stardom_Games</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  </section>
+    <a id="twitter-timeline" class="twitter-timeline" data-width="1200" data-height="440" data-theme="dark" href="https://twitter.com/Stardom_Games?ref_src=twsrc%5Etfw">Tweets by Stardom_Games</a>
+  </section>
 </main>
 
 <script src="scripts.js"></script>
+<script>
+  // Adjust Twitter embed width on mobile
+  function setTwitterEmbedWidth() {
+    const twitterTimeline = document.getElementById('twitter-timeline');
+    if (twitterTimeline) { // Check if the element exists
+      if (window.innerWidth <= 767) {
+        twitterTimeline.setAttribute('data-width', '350');
+      } else {
+        twitterTimeline.setAttribute('data-width', '1200');
+      }
+      twttr.widgets.load(); // Reload Twitter widget to apply the new width
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Run the function on page load and when resizing
+    setTwitterEmbedWidth();
+    window.addEventListener('resize', setTwitterEmbedWidth);
+  });
+</script>
 </body>
 </html>
