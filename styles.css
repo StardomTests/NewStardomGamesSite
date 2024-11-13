@@ -262,7 +262,7 @@ a:hover {
 /* Mobile Styling for Small Screens */
 @media screen and (max-width: 767px) {
   body {
-    background-attachment: scroll; /* Disable fixed background for performance on mobile */
+    background-attachment: scroll;
   }
 
   /* Adjust main container padding */
@@ -270,16 +270,17 @@ a:hover {
     padding: 1rem;
   }
 
-  /* Header adjustments */
+  /* Shrink header for vertical display */
   .header {
-    height: 60px;
-    font-size: 16px;
-    padding-bottom: 15px;
+    height: 50px;
+    font-size: 14px;
+    padding-bottom: 10px;
   }
 
   .header img {
-    width: 3rem;
+    width: 2.5rem; /* Shrink logo size */
     top: 50%;
+    transform: translate(-50%, -50%);
   }
 
   /* Game Section: Single-column layout for mobile */
@@ -287,18 +288,18 @@ a:hover {
   #social-section,
   #mod-section,
   #app-section {
-    grid-template-columns: 1fr; /* One column on mobile */
-    gap: 2rem;
-    padding: 1rem; /* Add some padding on the sides */
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
   }
 
   /* Game Card adjustments */
   .game-card {
-    padding: 1rem;
-    margin: 0.5rem; /* Smaller margins */
-    width: 100%; /* Full width of the container */
-    max-width: 100%; /* Remove fixed width */
-    font-size: 0.9rem; /* Slightly smaller font size */
+    padding: 0.75rem;
+    margin: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
   }
 
   /* Game Card Image */
@@ -315,13 +316,5 @@ a:hover {
   a,
   .dscontent a {
     font-size: 0.85rem;
-  }
-
-  /* Reduce gap between game sections */
-  #game-section,
-  #social-section,
-  #mod-section,
-  #app-section {
-    gap: 1.5rem;
   }
 }
