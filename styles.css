@@ -1,0 +1,257 @@
+/* Body and Main Container Styling */
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #424242;
+  border-radius: 5px;
+}
+
+
+@font-face {
+  font-family: "Silkscreen"; /*a name to be used later*/
+  src: url("fonts/slkscr.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Upheaval"; /*a name to be used later*/
+  src: url("fonts/upheaval.ttf") format("truetype");
+}
+
+body {
+  font-family: "Silkscreen", Arial, sans-serif;
+  color: #e0e0e0;
+  background-color: black;
+  background-image: url("https://raw.githubusercontent.com/jordan-trempert/media/main/stars.png");
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
+  cursor: url("https://raw.githubusercontent.com/jordan-trempert/media/main/cursor_default1.png"), auto;
+  animation: bgscroll 20s linear infinite;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Game Section Container: Two-Column Layout */
+#game-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Always two columns */
+  gap: 5rem; /* Adjust this value to change the gap between cards */
+  width: 100%;
+  max-width: 1200px; /* Limits the width on large screens */
+}
+
+#social-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Always two columns */
+  gap: 5rem; /* Adjust this value to change the gap between cards */
+  width: 100%;
+  max-width: 1200px; /* Limits the width on large screens */
+}
+
+#mod-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Always two columns */
+  gap: 5rem; /* Adjust this value to change the gap between cards */
+  width: 100%;
+  max-width: 1200px; /* Limits the width on large screens */
+}
+
+#app-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Always two columns */
+  gap: 5rem; /* Adjust this value to change the gap between cards */
+  width: 100%;
+  max-width: 1200px; /* Limits the width on large screens */
+}
+
+/* Game Card Styles */
+.game-card {
+  position: relative;
+  padding: 1rem;
+  margin: 1rem; /* Ensure there's a margin around each card */
+  border: solid 4px #212121;
+  border-radius: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  width: 100%;
+  max-width: 125%;
+  transition: transform 0.3s;
+}
+
+/* Gradient Border */
+.game-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 3px;
+  background: var(--border-gradient);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+  z-index: -1;
+  background-size: 200% 200%;
+  animation: borderGradientPosition 4s ease infinite;
+}
+
+/* Game Card Hover Effect */
+.game-card:hover {
+  transform: scale(1.05) rotate(2deg);
+  background: var(--hover-gradient);
+  background-size: 150% 150%;
+  animation: sway 2s ease-in-out infinite;
+  webkit-transition: background-color 250ms ease-in-out;
+    -moz-transition: background-color 250ms ease-in-out;
+    -ms-transition: background-color 250ms ease-in-out;
+    -o-transition: background-color 250ms ease-in-out;
+    transition: background-color 250ms ease-in-out;
+    webkit-transition: border-color 250ms ease-in-out;
+    -moz-transition: border-color 250ms ease-in-out;
+    -ms-transition: border-color 250ms ease-in-out;
+    -o-transition: border-color 250ms ease-in-out;
+    transition: border-color 250ms ease-in-out;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* Keyframes for side-to-side movement */
+@keyframes sway {
+  0% {
+    transform: rotate(2deg);
+    background-position: 0% 50%;
+  }
+  50% {
+    transform: rotate(-2deg);
+    background-position: 100% 50%;
+  }
+  100% {
+    transform: rotate(2deg);
+    background-position: 0% 50%;
+  }
+}
+
+/* Game Card Image */
+.dslogo {
+  width: 4rem;
+  border-radius: 10px;
+  transition: transform 0.2s;
+  cursor: url("https://raw.githubusercontent.com/jordan-trempert/media/main/cursor_select.png"), auto;
+  user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.dslogo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* Game Card Description Text */
+.dscontent {
+  font-family: "Silkscreen";
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #e0e0e0;
+}
+
+/* Game Card Link */
+.dscontent a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+a {
+  color: white;
+  cursor: url("https://raw.githubusercontent.com/jordan-trempert/media/main/cursor_select.png"), auto;
+}
+
+a:hover {
+  cursor: url("https://raw.githubusercontent.com/jordan-trempert/media/main/cursor_select.png"), auto;
+}
+
+.dscontent a:hover {
+  color: #ff4301;
+}
+
+/* Animated Background */
+@keyframes bgscroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 -2000px; }
+}
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0%;
+  width: 100%;
+  height: 80px;
+  z-index: 10;
+  border-radius: 0px 0px 0px 0px;
+  text-align: middle;
+  padding: 0%;
+  opacity: 0.65;
+  font-size: 20px;
+  background-color: black;
+  padding-bottom: 25px;
+
+}
+
+.header img {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4rem;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.header a:hover{
+    font-size: 25px;
+}
+
+@media screen and (min-width: 768px) {
+  .header img {
+    width: 50px;
+    position: relative;
+    top: 30px;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
