@@ -84,7 +84,7 @@ main {
 .game-card {
   position: relative;
   padding: 1rem;
-  margin: 1rem; /* Ensure there's a margin around each card */
+  margin: 1rem;
   border: solid 4px #212121;
   border-radius: 20px;
   text-align: center;
@@ -94,6 +94,11 @@ main {
   max-width: 125%;
   transition: transform 0.3s;
 }
+
+.game-card.animate-on-load {
+  animation: backInDown 2s; /* Plays only on load */
+}
+
 
 /* Gradient Border */
 .game-card::before {
@@ -153,6 +158,22 @@ main {
   }
 }
 
+/* Bounce Inward Animation */
+@keyframes bounceIn {
+  0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(0.7); /* Shrinks more for a more intense effect */
+    }
+    60% {
+      transform: scale(1.1); /* Slightly overshoots for a bounce-back effect */
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
 /* Game Card Image */
 .dslogo {
   width: 4rem;
@@ -160,17 +181,25 @@ main {
   transition: transform 0.2s;
   cursor: url("https://raw.githubusercontent.com/jordan-trempert/media/main/cursor_select.png"), auto;
   user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
+
+/* Bounce on Click */
+.dslogo:active {
+  animation: bounceIn 0.3s ease;
+}
+
 
 .dslogo:hover {
   transform: scale(1.1);
   filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.5));
 }
+
+
 
 /* Game Card Description Text */
 .dscontent {
@@ -237,6 +266,8 @@ a:hover {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+
 
 .header a:hover{
     font-size: 25px;
