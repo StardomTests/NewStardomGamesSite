@@ -282,7 +282,7 @@ populateGames([{
 		hoverDescription: "Fall and Avoid Bombs! (Suggested on Mobile)",
 		link: "https://parachutefall.stardomga.me/game/index.html",
 		borderGradient: "linear-gradient(-45deg, #082470, #0868a8)",
-		hoverGradient: "linear-gradient(-45deg, #0868a8, #082470))",
+		hoverGradient: "linear-gradient(-45deg, #0868a8, #082470)",
 		easterEggColor: "#082470"
 	},
 	{
