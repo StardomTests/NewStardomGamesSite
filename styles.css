@@ -292,9 +292,6 @@ a:hover {
 /* Mobile Settings */
 /* Mobile Styling for Small Screens */
 @media screen and (max-width: 767px) {
-  body {
-    background-attachment: scroll;
-  }
 
   /* Adjust main container padding */
   main {
