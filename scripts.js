@@ -1,3 +1,29 @@
+// Fix for initial game card animations
+document.addEventListener("DOMContentLoaded", function () {
+  const gameCards = document.querySelectorAll(".game-card");
+
+  gameCards.forEach((card) => {
+    // Add the animation class
+    card.classList.add("animate-on-load");
+
+    // Remove the animation class after it finishes
+    card.addEventListener("animationend", () => {
+      card.classList.remove("animate-on-load");
+    });
+  });
+});
+
+// Get the logo image and the header
+const specialImage = document.getElementById('logoImage');
+const header = document.getElementById('header');
+
+// Add a click event to change the header background color
+if (logoImage && header) {
+  specialImage.addEventListener('click', () => {
+    header.style.backgroundColor = 'black';
+  });
+}
+
 // Define the Konami Code sequence
 const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 let konamiCodeIndex = 0;
