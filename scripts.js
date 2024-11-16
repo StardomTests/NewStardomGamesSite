@@ -490,6 +490,16 @@ populateMods([{
 		borderGradient: "linear-gradient(-45deg, #f1c332, #d003f7)",
 		hoverGradient: "linear-gradient(-45deg, #d003f7, #f1c332)",
 		easterEggColor: "#f1c332"
+	},
+	{
+		imageSrc: "https://cdn.modrinth.com/data/iX99Kymi/a8adfec3a25b5b801c0518feaf264d4b964c5554.png",
+		description: "Stardom's Dungeons",
+		hoverDescription: "Adds difficult end-game dungeons to Minecraft!",
+		link: "https://modrinth.com/mod/stardoms-dungeons/",
+		linkText: "Modrinth",
+		borderGradient: "linear-gradient(-45deg, #4b494b, #ffff46)",
+		hoverGradient: "linear-gradient(-45deg, #ffff46, #4b494b)",
+		easterEggColor: "#ffff46"
 	}
 ]);
 
