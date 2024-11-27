@@ -513,6 +513,17 @@ populateMods([{
 ]);
 
 populateApps([{
+	{
+	imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/android-chrome-192x192.png",
+	description: "DeskThing",
+	hoverDescription: "Display and control your spotify music!",
+	link: "https://deskthing.stardomga.me",
+	linkText: "web app",
+	borderGradient: "linear-gradient(-45deg, #57ba63, #2abe11)",
+	hoverGradient: "linear-gradient(-45deg, #2abe11, #57ba63)",
+	easterEggColor: "#57ba63"
+	},
+	{
 	imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/main/moviewer.png",
 	description: "Moviewer",
 	hoverDescription: "View, Rate, and comment on movies!",
