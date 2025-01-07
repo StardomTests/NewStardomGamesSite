@@ -214,7 +214,7 @@ function populateApps(apps) {
 }
 
 populateGames([{
-        imageSrc: "https://github.com/jordan-trempert/media/blob/main/perspectiveRemastered.png"
+        imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/perspectiveRemastered.png"
         , description: "Perspective Remastered"
         , hoverDescription: "A Modern Remake of Perspective Part 1"
         , link: "https://stardomgames.itch.io/perspective-remastered"
