@@ -214,6 +214,15 @@ function populateApps(apps) {
 }
 
 populateGames([{
+        imageSrc: "https://github.com/jordan-trempert/media/blob/main/perspectiveRemastered.png"
+        , description: "Perspective Remastered"
+        , hoverDescription: "A Modern Remake of Perspective Part 1"
+        , link: "https://stardomgames.itch.io/perspective-remastered"
+        , borderGradient: "linear-gradient(-45deg,rgba(208, 94, 180, 1) 0%,rgba(102, 164, 216, 1) 25%,rgba(121, 206, 114, 1) 50%,rgba(246, 64, 59, 1) 75%)"
+        , hoverGradient: "linear-gradient(-45deg,rgba(246, 64, 59, 1) 0%,rgba(121, 206, 114, 1) 25%,rgba(102, 164, 216, 1) 50%,rgba(208, 94, 180, 1) 75%)"
+        , easterEggColor: "#d05eb4"
+    }
+    ,{
         imageSrc: "https://img.itch.zone/aW1nLzE4NjY0NjYwLnBuZw==/original/S3FZh%2F.png"
         , description: "Secret Sin"
         , hoverDescription: "Have an Affair!"
