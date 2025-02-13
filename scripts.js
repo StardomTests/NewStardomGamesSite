@@ -488,6 +488,16 @@ populateMods([{
         , borderGradient: "linear-gradient(-45deg, rgb(199, 192, 171) 0%, rgb(199, 192, 171) 25%, rgb(57, 27, 103) 50%, rgb(57, 27, 103) 75%)"
         , hoverGradient: "linear-gradient(45deg, rgb(57, 27, 103) 0%, rgb(57, 27, 103) 25%, rgb(199, 192, 171) 50%, rgb(199, 192, 171) 75%)"
         , easterEggColor: "#c7c0ab"
+    },
+    {
+        imageSrc: "https://cdn.modrinth.com/data/KsNlEiNa/e53ca3152f9872d4556a5d27af480eddb9787956_96.webp"
+        , description: "Stardom's Skys"
+        , hoverDescription: "An addon for Stardom's Extreme End which adds a whole new dimension"
+        , link: "https://modrinth.com/mod/stardoms-skys/"
+        , linkText: "Modrinth"
+        , borderGradient: "linear-gradient(-45deg, rgb(39,45,68) 0%, rgb(39,45,68) 25%, rgb(92,108,160) 50%, rgb(92,108,160) 75%)"
+        , hoverGradient: "linear-gradient(45deg, rgb(92,108,160) 0%, rgb(92,108,160) 25%, rgb(39,45,68) 50%, rgb(39,45,68) 75%)"
+        , easterEggColor: "#5c6ca0"
     }
     , {
         imageSrc: "https://cdn.modrinth.com/data/iLPzEDlD/55a2d8c5dfa847d149b34dc54fa6f6952afcb31f.png"
