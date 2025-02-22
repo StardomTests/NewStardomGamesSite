@@ -223,7 +223,7 @@ populateGames([{
         , easterEggColor: "#d05eb4"
     },
     {
-        imageSrc: "https://img.itch.zone/aW1nLzE5OTY5OTg3LnBuZw==/315x250%23c/aNT%2BqG.png"
+        imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/m.png"
         , description: "Trust Me"
         , hoverDescription: "A Platformer made for Brackeys Game Jam 2025"
         , link: "https://stardomgames.itch.io/trust-me"
