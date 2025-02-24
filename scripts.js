@@ -231,15 +231,6 @@ populateGames([{
         , hoverGradient: "linear-gradient(-45deg,rgba(230,53,53,255) 0%,rgba(230,53,53,255) 25%,rgba(0,194,204,255) 50%,rgba(0,194,204,255) 75%)"
         , easterEggColor: "#004bad"
     }
-    ,{
-        imageSrc: "https://img.itch.zone/aW1nLzE4NjY0NjYwLnBuZw==/original/S3FZh%2F.png"
-        , description: "Secret Sin"
-        , hoverDescription: "Have an Affair!"
-        , link: "https://stardomgames.itch.io/secret-sin"
-        , borderGradient: "linear-gradient(-45deg, #cb6ce6, #5e17eb)"
-        , hoverGradient: "linear-gradient(-45deg, #5e17eb, #cb6ce6)"
-        , easterEggColor: "#5e17eb"
-    }
     , {
         imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/main/AI.png"
         , description: "AI Invasion"
