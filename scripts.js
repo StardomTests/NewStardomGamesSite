@@ -220,7 +220,7 @@ populateGames([{
         , link: "https://mogging.stardomga.me"
         , borderGradient: "linear-gradient(-45deg,rgba(255, 102, 196, 1) 0%,rgba(255, 102, 196, 1) 25%,rgba(255, 49, 49, 1) 50%,rgba(255, 49, 49, 1) 75%)"
         , hoverGradient: "linear-gradient(-45deg,rgba(255, 49, 49, 1) 0%,rgba(255, 49, 49, 1) 25%,rgba(255, 102, 196, 1) 50%,rgba(255, 102, 196, 1) 75%)"
-        , easterEggColor: "#00000"
+        , easterEggColor: "#000000"
     },
     {
         imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/perspectiveRemastered.png"
