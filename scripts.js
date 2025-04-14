@@ -489,6 +489,16 @@ populateSocials([{
 ]);
 
 populateMods([{
+        imageSrc: "https://cdn.modrinth.com/data/AbtnRxbA/727d6bb47975eaa34343f1510fc97428671ab1d1.png"
+        , description: "Stardom's Flora"
+        , hoverDescription: "This mod adds more plants to the game!"
+        , link: "https://modrinth.com/mod/stardoms-flora/"
+        , linkText: "Modrinth"
+        , borderGradient: "linear-gradient(-45deg, green 0%, lime 20%, lime 40%, green 60%, green 80%, lime 100%)"
+        , hoverGradient: "linear-gradient(45deg, lime 0%, green 20%, green 40%, lime 60%, lime 80%, green 100%)"
+        , easterEggColor: "#FFA500"
+    },
+    {
         imageSrc: "https://cdn.modrinth.com/data/5CpvIduG/45302ae4c31cdd3483c624b3253ca1cb9e8c334d_96.webp"
         , description: "Stardom's Colors"
         , hoverDescription: "This mod allows more customizable dying of certain blocks!"
@@ -497,7 +507,8 @@ populateMods([{
         , borderGradient: "linear-gradient(-45deg, red 0%, orange 20%, yellow 40%, green 60%, blue 80%, violet 100%)"
         , hoverGradient: "linear-gradient(45deg, violet 0%, blue 20%, green 40%, yellow 60%, orange 80%, red 100%)"
         , easterEggColor: "#FFA500"
-    },{
+    },
+    {
         imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/main/ae13dcdb84cb157c3f8b35c5077688d058a5458f.png"
         , description: "Stardom's Extreme End"
         , hoverDescription: "This mod overhauls the end in an extreme way!"
