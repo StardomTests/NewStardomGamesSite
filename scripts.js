@@ -496,7 +496,7 @@ populateMods([{
         , linkText: "Modrinth"
         , borderGradient: "linear-gradient(-45deg, green 0%, lime 20%, lime 40%, green 60%, green 80%, lime 100%)"
         , hoverGradient: "linear-gradient(45deg, lime 0%, green 20%, green 40%, lime 60%, lime 80%, green 100%)"
-        , easterEggColor: "#FFA500"
+        , easterEggColor: "#00FF00"
     },
     {
         imageSrc: "https://cdn.modrinth.com/data/5CpvIduG/45302ae4c31cdd3483c624b3253ca1cb9e8c334d_96.webp"
