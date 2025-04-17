@@ -489,6 +489,16 @@ populateSocials([{
 ]);
 
 populateMods([{
+        imageSrc: "https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png"
+        , description: "Stardom's Ghasts"
+        , hoverDescription: "This mod adds armor for Happy Ghasts!"
+        , link: "https://modrinth.com/mod/stardoms-ghasts/"
+        , linkText: "Modrinth"
+        , borderGradient: "linear-gradient(-45deg, red 0%, red 20%, orange 40%, orange 60%, yellow 80%, white 100%)"
+        , hoverGradient: "linear-gradient(45deg, white 0%, yellow 20%, orange 40%, orange 60%, red 80%, red 100%)"
+        , easterEggColor: "#FF653B"
+    },
+    {
         imageSrc: "https://cdn.modrinth.com/data/AbtnRxbA/727d6bb47975eaa34343f1510fc97428671ab1d1.png"
         , description: "Stardom's Flora"
         , hoverDescription: "This mod adds more plants to the game!"
