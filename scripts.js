@@ -571,6 +571,16 @@ populateMods([{
 ]);
 
 populateApps([{
+                imageSrc: "https://mods.stardomga.me/images/favicon.png"
+                , description: "Stardom Mods"
+                , hoverDescription: "Upload/Download mods for your favorite games!"
+                , link: "https://mods.stardomga.me"
+                , linkText: "BETA"
+                , borderGradient: "linear-gradient(-45deg, #004aad, #cb6ce6)"
+                , hoverGradient: "linear-gradient(-45deg, #cb6ce6, #004aad)"
+                , easterEggColor: "#004aad"
+            },
+              {
                 imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/android-chrome-192x192.png"
                 , description: "DeskThing"
                 , hoverDescription: "Display and control your spotify music!"
