@@ -488,7 +488,18 @@ populateSocials([{
     }
 ]);
 
-populateMods([{
+populateMods([
+    {
+        imageSrc: "https://cdn.modrinth.com/data/LRuyfCnn/ea8494ae3cc0161fa3e457e85051875133f1536e_96.webp"
+        , description: "Stardom's Magic"
+        , hoverDescription: "A mod completely overhauling Minecraft's magic system!"
+        , link: "https://modrinth.com/mod/stardoms-magic/"
+        , linkText: "Modrinth"
+        , "borderGradient": "linear-gradient(-45deg, lightgray 0%, lightgray 100%)"
+        , "hoverGradient": "linear-gradient(45deg, darkblue 0%, darkblue 100%)"
+        , "easterEggColor": "lightblue"
+    },
+    {
         imageSrc: "https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png"
         , description: "Stardom's Ghasts"
         , hoverDescription: "This mod adds armor for Happy Ghasts!"
