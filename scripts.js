@@ -495,9 +495,9 @@ populateMods([
         , hoverDescription: "A mod completely overhauling Minecraft's magic system!"
         , link: "https://modrinth.com/mod/stardoms-magic/"
         , linkText: "Modrinth"
-        , "borderGradient": "linear-gradient(-45deg, lightgray 0%, lightgray 100%)"
-        , "hoverGradient": "linear-gradient(45deg, darkblue 0%, darkblue 100%)"
-        , "easterEggColor": "lightblue"
+        , borderGradient: "linear-gradient(-45deg, lightgray 0%, darkblue 100%)"
+        , hoverGradient: "linear-gradient(45deg, darkblue 0%, lightgray 100%)"
+        , easterEggColor: "lightblue"
     },
     {
         imageSrc: "https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png"
