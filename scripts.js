@@ -214,6 +214,15 @@ function populateApps(apps) {
 }
 
 populateGames([{
+    imageSrc: "https://jokerjack.stardomga.me/icon.png"
+        , description: "JokerJack"
+        , hoverDescription: "Balatro, but Black Jack"
+        , link: "https://jokerjack.stardomga.me"
+        , borderGradient: "linear-gradient(to right, rgba(157, 78, 221, 1.0) 0%, rgba(255, 93, 143, 1.0) 50%, rgba(26, 22, 37, 1.0) 100%)"
+        , hoverGradient: "linear-gradient(to right, rgba(26, 22, 37, 1.0) 0%, rgba(255, 93, 143, 1.0) 50%, rgba(157, 78, 221, 1.0) 100%)"
+        , easterEggColor: "#9D4EDD"
+    },
+    {
     imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/mogging.png"
         , description: "Mogging Simulator 2025"
         , hoverDescription: "Happy April Fools!"
