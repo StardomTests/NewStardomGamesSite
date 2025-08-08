@@ -1,85 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6603445336390626"
-     crossorigin="anonymous"></script>
-  <meta property="og:title" content="Stardom Game Studios" />
-  <meta property="og:description" content="Collections of Games, Apps, and Mods from Stardom Game Studios" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/jordan-trempert/media/main/stardom-logo%20(1).png" />
-  <meta property="og:url" content="https://stardomga.me" />
-  <meta property="og:type" content="website" />
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-          rel="shortcut icon"
-          href="https://raw.githubusercontent.com/jordan-trempert/media/main/stardom-logo%20(1).png"
-  />
-
-  <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
-
-  <title>Stardom Game Studios</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Twitter Embed Script -->
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</head>
-<body class="body">
-<!-- Navbar -->
-<nav id="navbar"></nav>
-
-<!-- Header -->
-<header class="header" id="header">
-  <img src="https://raw.githubusercontent.com/jordan-trempert/media/main/stardom-logo%20(1).png" id="logoImage">
-  <br />
-  <br />
-  <br />
-  <center>
-    <a href="#game-header">GAMES</a> | <a href="#social-header">SOCIALS</a> | <a href="#mod-header">MODS</a> | <a href="#app-header">APPS</a> | <a href="#tweets-header">TWEETS</a>
-  </center>
-</header>
-
-<!-- Main Content -->
-<main>
-  <br />
-  <br />
-  <br />
-  <center><h1 id="game-header">- GAMES -</h1></center>
-  <section id="game-section" class="content-section"></section>
-  <center><h1 id="social-header">- SOCIALS -</h1></center>
-  <section id="social-section" class="content-section"></section>
-  <center><h1 id="mod-header">- MODS -</h1></center>
-  <section id="mod-section" class="content-section"></section>
-  <center><h1 id="app-header">- APPS -</h1></center>
-  <section id="app-section" class="content-section"></section>
-  <center><h1 id="tweets-header">- TWEETS -</h1></center>
-  <section id="tweets-section" class="content-section">
-    <!-- Embed Tweets from @Stardom_Games -->
-    <a id="twitter-timeline" class="twitter-timeline" data-width="1200" data-height="440" data-theme="dark" href="https://twitter.com/Stardom_Games?ref_src=twsrc%5Etfw">Tweets by Stardom_Games</a>
-  </section>
-</main>
-
-<script src="scripts.js"></script>
-<script>
-  // Adjust Twitter embed width on mobile
-  function setTwitterEmbedWidth() {
-    const twitterTimeline = document.getElementById('twitter-timeline');
-    if (twitterTimeline) { // Check if the element exists
-      if (window.innerWidth <= 767) {
-        twitterTimeline.setAttribute('data-width', '350');
-      } else {
-        twitterTimeline.setAttribute('data-width', '1200');
-      }
-      twttr.widgets.load(); // Reload Twitter widget to apply the new width
+  <title>Stardom Game Studios // Terminal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+        --primary-color: #00f6ff;
+        --secondary-color: #ff00c1;
+        --background-color: #0a0a14;
+        --border-color: rgba(0, 246, 255, 0.2);
     }
+
+    body {
+        font-family: 'Roboto Mono', monospace;
+        background-color: var(--background-color);
+        color: #d1d5db;
+        /* overflow: hidden; Removed to allow panel scrolling */
+        background-image:
+            linear-gradient(rgba(0, 246, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 246, 255, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .spotlight {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(0, 246, 255, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease-out;
+        z-index: 0;
+    }
+
+    .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+        background-size: 100% 4px;
+        animation: scan 10s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes scan {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 100vh; }
+    }
+
+    .glow {
+        text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    }
+
+    .title-font {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+        color: var(--primary-color);
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+    .nav-link:hover, .nav-link.active {
+        background: var(--border-color);
+        text-shadow: 0 0 8px var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .content-panel {
+        background: rgba(10, 10, 20, 0.8);
+        backdrop-filter: blur(5px);
+        border: 1px solid var(--border-color);
+        overflow-y: auto;
+        display: none; /* Hidden by default */
+    }
+    .content-panel.active {
+        display: block; /* Shown when active */
+    }
+
+    /* Custom scrollbar */
+    .content-panel::-webkit-scrollbar {
+        width: 8px;
+    }
+    .content-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .content-panel::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 4px;
+    }
+
+    .project-card {
+        background: rgba(0, 246, 255, 0.03);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        display: flex; /* Added for consistent card layout */
+        flex-direction: column; /* Added for consistent card layout */
+    }
+    .project-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .project-card:before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0, 246, 255, 0.15), transparent 40%);
+        transform: scale(0);
+        transition: transform 0.5s ease;
+        pointer-events: none;
+    }
+    .project-card-wrapper:hover .project-card {
+        border-color: var(--primary-color);
+        transform: translateY(-4px);
+        box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
+    }
+    .project-card-wrapper:hover .project-card:before {
+        transform: scale(1);
+    }
+
+    .img-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 246, 255, 0.1);
+        color: var(--primary-color);
+        font-size: 0.8rem;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .typing-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1.5em;
+        background-color: var(--primary-color);
+        animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    .glitch {
+        position: relative;
+    }
+    .glitch:hover:before, .glitch:hover:after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--background-color);
+        overflow: hidden;
+    }
+    .glitch:hover:before {
+        left: 2px;
+        text-shadow: -2px 0 var(--secondary-color);
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    .glitch:hover:after {
+        left: -2px;
+        text-shadow: -2px 0 var(--primary-color), 2px 2px var(--secondary-color);
+        animation: glitch-anim-2 2s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim-1 { 0%, 100% { clip-path: inset(45% 0 50% 0); } 20% { clip-path: inset(10% 0 85% 0); } 40% { clip-path: inset(60% 0 30% 0); } 60% { clip-path: inset(30% 0 65% 0); } 80% { clip-path: inset(80% 0 5% 0); } }
+    @keyframes glitch-anim-2 { 0%, 100% { clip-path: inset(5% 0 90% 0); } 20% { clip-path: inset(70% 0 25% 0); } 40% { clip-path: inset(40% 0 55% 0); } 60% { clip-path: inset(15% 0 80% 0); } 80% { clip-path: inset(90% 0 5% 0); } }
+  </style>
+</head>
+<body class="text-sm">
+<div class="spotlight"></div>
+<div class="scanline"></div>
+
+<div class="relative min-h-screen flex flex-col md:flex-row p-4 gap-4 z-10">
+  <!-- Sidebar / Navigation -->
+  <aside class="flex-shrink-0 md:w-64 flex flex-col gap-4">
+    <header class="border border-[var(--border-color)] p-4 text-center">
+      <div class="glitch" data-text="STARDOM">
+        <h1 class="title-font text-2xl font-black text-white glow">STARDOM</h1>
+      </div>
+      <p class="text-[var(--primary-color)] text-xs tracking-widest">GAME STUDIOS</p>
+    </header>
+    <nav class="border border-[var(--border-color)] p-4 flex-grow flex flex-col gap-2">
+      <div class="nav-link active" data-target="home">_HOME</div>
+      <div class="nav-link" data-target="games">_GAMES</div>
+      <div class="nav-link" data-target="mods">_MODS</div>
+      <div class="nav-link" data-target="apps">_APPS</div>
+      <div class="nav-link" data-target="socials">_SOCIALS</div>
+    </nav>
+    <footer class="border border-[var(--border-color)] p-2 text-center text-xs text-gray-500">
+      &copy; 2025 Stardom OS v1.0
+    </footer>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow h-[calc(100vh-2rem)] md:h-auto">
+    <!-- Home Panel -->
+    <div id="home" class="content-panel active h-full">
+      <div class="p-8 h-full flex flex-col justify-center items-center text-center">
+        <h2 class="title-font text-5xl md:text-7xl font-black text-white mb-2 glow">SYSTEM ONLINE</h2>
+        <p class="text-lg text-gray-300 mb-6">Welcome to the Stardom Game Studios Terminal.</p>
+        <p class="max-w-xl text-gray-400">We are a passionate team dedicated to creating unforgettable gaming experiences and innovative applications. Select a directory from the navigation panel to explore our projects.</p>
+      </div>
+    </div>
+
+    <!-- Other Panels will be injected here by JS -->
+    <div id="games" class="content-panel h-full"></div>
+    <div id="mods" class="content-panel h-full"></div>
+    <div id="apps" class="content-panel h-full"></div>
+    <div id="socials" class="content-panel h-full"></div>
+    <div id="test" class="content-panel h-full"></div>
+  </main>
+</div>
+
+<script>
+  // --- DATA ---
+  const data = {
+      games: [
+          { name: "JokerJack", logo: "https://jokerjack.stardomga.me/icon.png", description: "Balatro, but Black Jack", url: "https://stardomgames.itch.io/jokerjack" },
+          { name: "Mogging Simulator 2025", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/mogging.png", description: "Happy April Fools!", url: "https://mogging.stardomga.me" },
+          { name: "Perspective Remastered", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/perspectiveRemastered.png", description: "Out Now on Steam!", url: "https://store.steampowered.com/app/3528500/Perspective_Remastered/" },
+          { name: "Trust Me", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/m.png", description: "A Platformer made for Brackeys Game Jam 2025", url: "https://stardomgames.itch.io/trust-me" },
+          { name: "AI Invasion", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/AI.png", description: "Risk mixed with DND and AI.", url: "https://ai-invasion.stardomga.me" },
+          { name: "Courtroom Chaos", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/cc.png", description: "Represent Clients to an AI Judge!", url: "https://courtroom-chaos.stardomga.me" },
+          { name: "Cube Conquest", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/1000018639-removebg-preview.png", description: "Gather resources and defend your base!", url: "https://stardomgames.itch.io/cube-conquest" },
+          { name: "Gravity Grapple: Dimensions", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/38974805_1162594521647001_8678711909508751475_n.png", description: "Swing Through the Multiverse! (VR)", url: "https://www.meta.com/experiences/8988079141207254/?utm_source=oculus&utm_medium=share" },
+          { name: "Productivity Quest 2024", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Productivity.png", description: "Become a Corporate Slave! Man I Love April!", url: "https://stardomgames.itch.io/productivity-quest-2024" },
+          { name: "Time Scale", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Time%20Scale%20Logo.png", description: "Reverse Time to Solve Puzzles", url: "https://stardomgames.itch.io/time-scale" },
+          { name: "Gravity Grapple", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/grapple.png", description: "Swing Through Space!", url: "https://stardomgames.itch.io/gravity-grapple" },
+          { name: "Parachute Fall", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/parachute.png", description: "Fall and Avoid Bombs! (Suggested on Mobile)", url: "https://parachutefall.stardomga.me/game/index.html" },
+          { name: "Kurger Bing Simulator", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Kurger%20Bing%20Simulator%20Logo.png", description: "Become an Amazing Kurger Bing Employee!", url: "https://stardomgames.itch.io/kurger-bing-heatn-it-up-simulator-2023-remastered-remix-ultimate-special-edition" },
+          { name: "Project Multiverse", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Multiverse%20Icon.png", description: "Cancelled.", url: "https://stardomgames.itch.io/project-multiverse" },
+          { name: "Yet Another Rip-off", logo: "https://github.com/jordan-trempert/media/blob/main/YARO.png?raw=true", description: "A collection of games commonly remade", url: "https://stardomgames.itch.io/yaro" },
+          { name: "Project Paradox", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Paradox.png", description: "Travel Through Different Worlds to Stop a Zombie Apocalypse", url: "https://stardomgames.itch.io/project-paradox" },
+          { name: "Green Square Adventures", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Green%20Square%20Adventures.png", description: "A platformer with zero bugs!", url: "https://stardomgames.itch.io/green-square-adventures" },
+          { name: "Perspective Part 1", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Perspective.png", description: "A Non-Euclidean Puzzle Game", url: "https://stardomgames.itch.io/perspective-part-1" },
+          { name: "Dungeon Slayer", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Dungeon%20Slayer.png", description: "Simple Rouge-like Dungeon Crawler", url: "https://github.com/StardomGames/Dungeon-Slayer/releases" },
+          { name: "A Blocky Puzzle 2", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Untitled%20design.png", description: "A Puzzle Game, Sequel to A Blocky Puzzle", url: "https://github.com/StardomGames/A-Blocky-Puzzle-2/releases" },
+          { name: "A Blocky Puzzle", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/ABP.png", description: "A Simple Puzzle Platformer", url: "https://github.com/StardomGames/A-Blocky-Puzzle/releases" }
+      ],
+      mods: [
+          { name: "Stardom's Magic", logo: "https://cdn.modrinth.com/data/LRuyfCnn/ea8494ae3cc0161fa3e457e85051875133f1536e_96.webp", description: "A mod completely overhauling Minecraft's magic system!", url: "https://modrinth.com/mod/stardoms-magic/" },
+          { name: "Stardom's Ghasts", logo: "https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png", description: "This mod adds armor for Happy Ghasts!", url: "https://modrinth.com/mod/stardoms-ghasts/" },
+          { name: "Stardom's Flora", logo: "https://cdn.modrinth.com/data/AbtnRxbA/727d6bb47975eaa34343f1510fc97428671ab1d1.png", description: "This mod adds more plants to the game!", url: "https://modrinth.com/mod/stardoms-flora/" },
+          { name: "Stardom's Colors", logo: "https://cdn.modrinth.com/data/5CpvIduG/45302ae4c31cdd3483c624b3253ca1cb9e8c334d_96.webp", description: "This mod allows more customizable dying of certain blocks!", url: "https://modrinth.com/mod/stardoms-colors/" },
+          { name: "Stardom's Extreme End", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/ae13dcdb84cb157c3f8b35c5077688d058a5458f.png", description: "This mod overhauls the end in an extreme way!", url: "https://modrinth.com/mod/stardoms-extreme-end/" },
+          { name: "Stardom's Skys", logo: "https://cdn.modrinth.com/data/KsNlEiNa/e53ca3152f9872d4556a5d27af480eddb9787956_96.webp", description: "An addon for Stardom's Extreme End which adds a whole new dimension", url: "https://modrinth.com/mod/stardoms-skys/" },
+          { name: "Stardom's Sync", logo: "https://cdn.modrinth.com/data/iLPzEDlD/55a2d8c5dfa847d149b34dc54fa6f6952afcb31f.png", description: "Syncs real life time and weather into Minecraft!", url: "https://modrinth.com/mod/stardoms-sync/" },
+          { name: "Stardom's Client", logo: "https://cdn.modrinth.com/data/eCxwIAgh/070f5bac4dc3ae760796d66458e006b7c81fd8ba.png", description: "Adds many QoL and customization feature to Minecraft!", url: "https://modrinth.com/mod/stardoms-client/" },
+          { name: "Stardom's Dungeons", logo: "https://cdn.modrinth.com/data/iX99Kymi/a8adfec3a25b5b801c0518feaf264d4b964c5554.png", description: "Adds difficult end-game dungeons to Minecraft!", url: "https://modrinth.com/mod/stardoms-dungeons/" }
+      ],
+      apps: [
+          { name: "Stardom Mods", logo: "https://mods.stardomga.me/images/favicon.png", description: "Upload/Download mods for your favorite games!", url: "https://mods.stardomga.me" },
+          { name: "DeskThing", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/android-chrome-192x192.png", description: "Display and control your spotify music!", url: "https://deskthing.stardomga.me" },
+          { name: "Moviewer", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/moviewer.png", description: "View, Rate, and comment on movies!", url: "https://moviewer.stardomga.me" }
+      ],
+      socials: [
+          { name: "Itch.io", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png", url: "https://stardomgames.itch.io/" },
+          { name: "Spotify", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/109018_media_512x512.png", url: "https://open.spotify.com/artist/1WQqvnEv8S9Bc37dqXvQbS?si=YzfOiVSKTEWWAnLdioV85w&utm_source=copy-link" },
+          { name: "YouTube", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/youtube.png", url: "https://www.youtube.com/channel/UCgmh2uIuUPxIep-qJ2WOEbg" },
+          { name: "Discord", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/discord.png", url: "https://discord.gg/CGqT9WX7sU" },
+          { name: "Instagram", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png", url: "https://www.instagram.com/stardomgamestudios/" },
+          { name: "X", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/x%20logo.png", url: "https://twitter.com/Stardom_Games" },
+          { name: "GitHub", logo: "https://github.com/jordan-trempert/media/blob/main/github.png?raw=true", url: "https://github.com/stardomgames" },
+          { name: "Patreon", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/patreon.jpg", url: "https://patreon.com/stardomgames" },
+          { name: "Reddit", logo: "https://cdn.fastly.picmonkey.com/content4/previews/social/social_54_550.webp", url: "https://reddit.com/r/stardomgames" }
+      ],
+      test: [
+          { name: "Test", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png", url: "https://stardomgames.itch.io/" }
+      ]
+  };
+
+  // --- FUNCTIONS ---
+  function createImagePlaceholder(el, text) {
+      el.innerHTML = '';
+      const placeholder = document.createElement('div');
+      placeholder.className = 'img-placeholder rounded-2xl';
+      placeholder.textContent = text;
+      el.appendChild(placeholder);
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    // Run the function on page load and when resizing
-    setTwitterEmbedWidth();
-    window.addEventListener('resize', setTwitterEmbedWidth);
+  function typeWriter(element, text, callback) {
+      let i = 0;
+      element.innerHTML = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+      element.appendChild(cursor);
+
+      function type() {
+          if (i < text.length) {
+              element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+              i++;
+              setTimeout(type, 50);
+          } else {
+              if (callback) callback();
+          }
+      }
+      type();
+  }
+
+  function animateCards(container) {
+       const cards = container.querySelectorAll('.project-card');
+       cards.forEach((card, index) => {
+          setTimeout(() => {
+              card.classList.add('visible');
+          }, index * 75);
+       });
+  }
+
+  function createSection(title, items, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      const contentWrapper = document.createElement('div');
+      contentWrapper.className = 'p-4 md:p-8';
+
+      const titleEl = document.createElement('h2');
+      titleEl.className = 'title-font text-3xl font-bold text-white mb-6 glow';
+      contentWrapper.appendChild(titleEl);
+
+      const grid = document.createElement('div');
+      const isSocial = containerId === 'socials';
+      const gridClasses = isSocial
+          ? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-4'
+          : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4';
+      grid.className = gridClasses;
+
+      items.forEach((item) => {
+          const cardWrapper = document.createElement('a');
+          cardWrapper.href = item.url || '#';
+          cardWrapper.target = '_blank';
+          cardWrapper.rel = 'noopener noreferrer';
+          cardWrapper.className = 'project-card-wrapper';
+
+          const card = document.createElement('div');
+          const cardClasses = isSocial
+              ? 'project-card p-4 items-center justify-center aspect-square'
+              : 'project-card p-4 items-center text-center h-full';
+          card.className = cardClasses;
+
+          const imgContainer = document.createElement('div');
+          imgContainer.className = 'w-16 h-16 mb-3 flex-shrink-0 bg-black/50 rounded-2xl p-1 overflow-hidden';
+
+          const img = document.createElement('img');
+          img.src = item.logo;
+          img.alt = `${item.name} Logo`;
+          img.className = 'w-full h-full object-contain';
+          img.onerror = () => createImagePlaceholder(imgContainer, item.name.substring(0, 3));
+          imgContainer.appendChild(img);
+
+          const name = document.createElement('p');
+          name.className = 'text-sm font-bold text-white';
+          name.textContent = item.name;
+
+          card.appendChild(imgContainer);
+          card.appendChild(name);
+
+          if (!isSocial && item.description) {
+              const description = document.createElement('p');
+              description.className = 'text-xs text-gray-400 mt-2 flex-grow';
+              description.textContent = item.description;
+              card.appendChild(description);
+          }
+
+          cardWrapper.appendChild(card);
+          grid.appendChild(cardWrapper);
+      });
+
+      contentWrapper.appendChild(grid);
+      container.appendChild(contentWrapper);
+
+      typeWriter(titleEl, `// ${title}`, () => {
+          animateCards(container);
+      });
+  }
+
+  // --- INITIALIZATION & NAVIGATION ---
+  document.addEventListener('DOMContentLoaded', () => {
+      const spotlight = document.querySelector('.spotlight');
+      document.addEventListener('mousemove', (e) => {
+          spotlight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      });
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      const contentPanels = document.querySelectorAll('.content-panel');
+
+      function switchPanel(targetId) {
+          navLinks.forEach(l => {
+              l.classList.toggle('active', l.dataset.target === targetId);
+          });
+
+          contentPanels.forEach(panel => {
+              if (panel.id === targetId) {
+                  panel.classList.add('active');
+                  if (targetId !== 'home') {
+                      const sectionData = data[targetId];
+                      createSection(targetId.toUpperCase(), sectionData, targetId);
+                  }
+              } else {
+                  panel.classList.remove('active');
+              }
+          });
+      }
+
+      navLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+              e.preventDefault();
+              switchPanel(link.dataset.target);
+          });
+      });
   });
 </script>
 </body>
