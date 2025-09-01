@@ -209,6 +209,7 @@
       <div class="nav-link" data-target="mods">_MODS</div>
       <div class="nav-link" data-target="apps">_APPS</div>
       <div class="nav-link" data-target="socials">_SOCIALS</div>
+      <div class="nav-link" data-target="blog">_BLOG</div>
     </nav>
     <footer class="border border-[var(--border-color)] p-2 text-center text-xs text-gray-500">
       &copy; 2025 Stardom OS v1.0
@@ -231,9 +232,23 @@
     <div id="mods" class="content-panel h-full"></div>
     <div id="apps" class="content-panel h-full"></div>
     <div id="socials" class="content-panel h-full"></div>
-    <div id="test" class="content-panel h-full"></div>
+    <div id="blog" class="content-panel h-full"></div>
   </main>
 </div>
+
+<!-- Popup Modal -->
+<div id="popup-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center z-50 hidden">
+  <div class="content-panel w-11/12 md:w-2/3 lg:w-1/2 max-w-4xl max-h-[80vh] flex flex-col">
+    <div class="p-4 border-b border-[var(--border-color)] flex justify-between items-center flex-shrink-0">
+      <h3 id="popup-title" class="title-font text-xl font-bold text-white glow">Blog Post</h3>
+      <button id="close-popup" class="text-[var(--primary-color)] hover:text-white text-3xl leading-none">&times;</button>
+    </div>
+    <div id="popup-content" class="p-6 md:p-8 overflow-y-auto text-gray-300">
+      <!-- Content will be injected here -->
+    </div>
+  </div>
+</div>
+
 
 <script>
   // --- DATA ---
@@ -288,8 +303,74 @@
           { name: "Patreon", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/patreon.jpg", url: "https://patreon.com/stardomgames" },
           { name: "Reddit", logo: "https://cdn.fastly.picmonkey.com/content4/previews/social/social_54_550.webp", url: "https://reddit.com/r/stardomgames" }
       ],
-      test: [
-          { name: "Test", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png", url: "https://stardomgames.itch.io/" }
+      blog: [
+          {
+              name: "JokerJack Roadmap",
+              logo: "https://jokerjack.stardomga.me/icon.png",
+              content: `
+<h4 class="text-lg font-bold text-[var(--primary-color)] mb-2">JokerJack 1.3.0 Roadmap</h4>
+<p1 class="text-lg font-bold text-[var(--primary-color)] mb-2">🟩 -> Done, 🟨 -> Started, 🔴 -> Not Started</p1>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Joker Editions</h5>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 <b>Enraged:</b> Joker triggers twice</li>
+    <li>🔴 <b>Golden:</b> Gives $1 every trigger</li>
+    <li>🔴 <b>Stone:</b> Gains +25 chips</li>
+    <li>🔴 <b>Foil:</b> Gains x1.5 chips</li>
+    <li>🔴 <b>Burnt:</b> Gains x1.5 mult</li>
+</ul>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Stakes (Applies previous stakes)</h5>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 <b>White stake:</b> Base game</li>
+    <li>🔴 <b>Green stake:</b> Target score increases quicker</li>
+    <li>🔴 <b>Yellow stake:</b> Less interest</li>
+    <li>🔴 <b>Black stake:</b> -1 Joker slot</li>
+    <li>🔴 <b>Gold Stake:</b> Score is halved, start with a random common Joker</li>
+</ul>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Curses/Blessings</h5>
+<h6 class="text-sm font-bold text-gray-300 mt-3 mb-1">Curses</h6>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 <b>Unimportant:</b> All card’s editions are ignored</li>
+    <li>🔴 <b>Bankrupt:</b> Gain no interest</li>
+    <li>🔴 <b>No Laughing Matter:</b> -1 Joker slot in the shops</li>
+</ul>
+
+<h6 class="text-sm font-bold text-gray-300 mt-3 mb-1">Blessings</h6>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 <b>Extraordinary:</b> All card’s editions are twice as potent</li>
+    <li>🔴 <b>Monopoly:</b> Gain double interest</li>
+    <li>🔴 <b>World’s Greatest Comedian:</b> +1 Joker slot in the shops</li>
+</ul>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Spectral cards</h5>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 Applies a random curse/blessing</li>
+    <li>🔴 <b>Rainbow:</b> Gives half of the cards in the deck polychrome, gain a random curse</li>
+    <li>🔴 <b>Shiny:</b> Gives half of the cards in the deck golden, gain a random curse</li>
+    <li>🔴 <b>Spaced Out:</b> Gives half of the cards in the deck astral, gain 2 random curses</li>
+    <li>🔴 <b>Tonight’s Big Loser:</b> Destroy a random Joker, gain a random blessing</li>
+    <li>🔴 <b>Equalizer:</b> Remove editions from half the deck, gain a random blessing</li>
+</ul>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Planet cards</h5>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 <b>Earth:</b> Hands equal to 21 gain +3 mult (display current)</li>
+    <li>🔴 <b>Jupiter:</b> Hands with 5 cards gain +3 mult (display current)</li>
+    <li>🔴 <b>Saturn:</b> Hands over 21 gain +3 mult (display current)</li>
+</ul>
+
+<h5 class="text-md font-bold text-white mt-4 mb-2">Also Coming...</h5>
+<ul class="list-disc list-inside text-gray-400 pl-4 mb-4">
+    <li>🔴 New Jokers</li>
+    <li>🔴 New Bosses</li>
+    <li>🔴 New Tarots</li>
+    <li>🔴 New Vouchers</li>
+    <li>🔴 New Editions</li>
+</ul>
+`
+          }
       ]
   };
 
@@ -345,17 +426,31 @@
 
       const grid = document.createElement('div');
       const isSocial = containerId === 'socials';
-      const gridClasses = isSocial
-          ? 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-4'
-          : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4';
+      const isBlog = containerId === 'blog';
+
+      let gridClasses = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4';
+      if (isSocial) {
+          gridClasses = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-4';
+      } else if (isBlog) {
+          gridClasses = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
+      }
       grid.className = gridClasses;
 
       items.forEach((item) => {
-          const cardWrapper = document.createElement('a');
-          cardWrapper.href = item.url || '#';
-          cardWrapper.target = '_blank';
-          cardWrapper.rel = 'noopener noreferrer';
-          cardWrapper.className = 'project-card-wrapper';
+          const cardWrapper = document.createElement(isBlog ? 'div' : 'a');
+
+          if (!isBlog) {
+            cardWrapper.href = item.url || '#';
+            cardWrapper.target = '_blank';
+            cardWrapper.rel = 'noopener noreferrer';
+          } else {
+            cardWrapper.classList.add('cursor-pointer');
+            cardWrapper.addEventListener('click', () => {
+              openPopup(item.name, item.content);
+            });
+          }
+
+          cardWrapper.className += ' project-card-wrapper';
 
           const card = document.createElement('div');
           const cardClasses = isSocial
@@ -399,6 +494,33 @@
       });
   }
 
+  // --- POPUP MODAL ---
+  const popupModal = document.getElementById('popup-modal');
+  const popupTitle = document.getElementById('popup-title');
+  const popupContent = document.getElementById('popup-content');
+  const closePopupButton = document.getElementById('close-popup');
+
+  function openPopup(title, content) {
+      popupTitle.textContent = title;
+      popupContent.innerHTML = content;
+      popupModal.classList.remove('hidden');
+  }
+
+  function closePopup() {
+      popupModal.classList.add('hidden');
+  }
+
+  if(popupModal && closePopupButton) {
+    closePopupButton.addEventListener('click', closePopup);
+    popupModal.addEventListener('click', (e) => {
+        // Close if clicked on the backdrop
+        if (e.target === popupModal) {
+            closePopup();
+        }
+    });
+  }
+
+
   // --- INITIALIZATION & NAVIGATION ---
   document.addEventListener('DOMContentLoaded', () => {
       const spotlight = document.querySelector('.spotlight');
@@ -418,8 +540,11 @@
               if (panel.id === targetId) {
                   panel.classList.add('active');
                   if (targetId !== 'home') {
-                      const sectionData = data[targetId];
-                      createSection(targetId.toUpperCase(), sectionData, targetId);
+                      // Check if the panel is empty before creating content
+                      if(panel.innerHTML.trim() === '') {
+                        const sectionData = data[targetId];
+                        createSection(targetId.toUpperCase(), sectionData, targetId);
+                      }
                   }
               } else {
                   panel.classList.remove('active');
