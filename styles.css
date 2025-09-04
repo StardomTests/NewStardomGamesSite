@@ -15,7 +15,6 @@
   border-radius: 5px;
 }
 
-
 @font-face {
   font-family: "Silkscreen"; /*a name to be used later*/
   src: url("fonts/slkscr.ttf") format("truetype");
@@ -356,3 +355,4 @@ a:hover {
     font-size: 0.85rem;
   }
 }
+
