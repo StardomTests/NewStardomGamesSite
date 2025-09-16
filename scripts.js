@@ -214,7 +214,7 @@ function populateApps(apps) {
 }
 
 populateGames([{
-    imageSrc: "https://jokerjack.stardomga.me/icon.png"
+    imageSrc: "https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png"
         , description: "JokerJack"
         , hoverDescription: "Balatro, but Black Jack"
         , link: "https://stardomgames.itch.io/jokerjack"
@@ -620,4 +620,5 @@ populateApps([{
                 , hoverGradient: "linear-gradient(45deg, #000, #464646)"
                 , easterEggColor: "#464646"
             }]);
+
 
