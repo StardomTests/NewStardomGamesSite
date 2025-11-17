@@ -406,6 +406,17 @@ populateGames([{
 ]);
 
 populateSocials([{
+        imageSrc: "https://chatterbox.stardomga.me/chatterbox.png"
+        , description: "chatterbox"
+        , hoverDescription: "chatterboxx"
+        , link: "https://chatterbox.stardomga.me/@stardom"
+        , linkText: "Follow!"
+        , borderGradient: "linear-gradient(-45deg, #ffffff, #000000)"
+        , hoverGradient: "linear-gradient(-45deg, #000000, #ffffff)"
+        , easterEggColor: "#ffffff"
+    }
+    ,
+    {
         imageSrc: "https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png"
         , description: "Itch.io"
         , hoverDescription: "Itch.io"
@@ -591,6 +602,16 @@ populateMods([
 ]);
 
 populateApps([{
+                imageSrc: "https://chatterbox.stardomga.me/chatterbox.png"
+                , description: "chatterbox"
+                , hoverDescription: "Connect with friends and view their videos, photos, and more!"
+                , link: "https://chatterbox.stardomga.me"
+                , linkText: "Join!"
+                , borderGradient: "linear-gradient(-45deg, #000000, #ffffff)"
+                , hoverGradient: "linear-gradient(-45deg, #ffffff, #000000)"
+                , easterEggColor: "#ffffff"
+            },
+              {
                 imageSrc: "https://mods.stardomga.me/images/favicon.png"
                 , description: "Stardom Mods"
                 , hoverDescription: "Upload/Download mods for your favorite games!"
@@ -620,5 +641,6 @@ populateApps([{
                 , hoverGradient: "linear-gradient(45deg, #000, #464646)"
                 , easterEggColor: "#464646"
             }]);
+
 
 
