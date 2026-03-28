@@ -1,521 +1,750 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/stardom-logo%20(1).png"> 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stardom Game Studios // Terminal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-        --primary-color: #00f6ff;
-        --secondary-color: #ff00c1;
-        --background-color: #0a0a14;
-        --border-color: rgba(0, 246, 255, 0.2);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STARDOM GAME STUDIOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+<style>
+:root {
+  --base: #03050f;
+  --text: #e8eeff;
+  --primary: #3b82f6;
+  --primary-bright: #60a5fa;
+  --primary-glow: rgba(59,130,246,0.18);
+  --secondary: #818cf8;
+  --line: #0f1a2e;
+  --line-bright: #1e3a5f;
+}
 
-    body {
-        font-family: 'Roboto Mono', monospace;
-        background-color: var(--background-color);
-        color: #d1d5db;
-        /* overflow: hidden; Removed to allow panel scrolling */
-        background-image:
-            linear-gradient(rgba(0, 246, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 246, 255, 0.05) 1px, transparent 1px);
-        background-size: 20px 20px;
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
 
-    .spotlight {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(0, 246, 255, 0.1) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-        transition: transform 0.1s ease-out;
-        z-index: 0;
-    }
+body {
+  font-family: 'Jersey 15', sans-serif;
+  background-color: var(--base);
+  color: var(--text);
+  overflow-x: hidden;
+  text-transform: uppercase;
+  background-image: radial-gradient(rgba(59,130,246,0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+  animation: bodyFadeIn 0.6s ease forwards;
+}
+@keyframes bodyFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .scanline {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
-        background-size: 100% 4px;
-        animation: scan 10s linear infinite;
-        pointer-events: none;
-    }
+/* ── SCAN LINES ── */
+.noise {
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px
+  );
+}
 
-    @keyframes scan {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 100vh; }
-    }
+/* ── CURSORS ── */
+.cursor {
+  position: fixed; width: 10px; height: 10px;
+  background: var(--primary-bright); border-radius: 50%;
+  pointer-events: none; z-index: 10000;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: screen; will-change: left,top;
+  box-shadow: 0 0 10px var(--primary), 0 0 24px rgba(59,130,246,0.5);
+  transition: width .15s, height .15s, background .15s;
+}
+.cursor-ring {
+  position: fixed; width: 34px; height: 34px;
+  border: 1px solid rgba(96,165,250,0.35); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); will-change: left,top;
+  transition: width .3s cubic-bezier(.16,1,.3,1), height .3s cubic-bezier(.16,1,.3,1), border-color .2s;
+}
+.cursor.hover   { width: 5px; height: 5px; background: #fff; }
+.cursor-ring.hover { width: 56px; height: 56px; border-color: var(--primary); }
 
-    .glow {
-        text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
-    }
+/* ── SCROLLING BACKGROUND ── */
+.bg-scroller {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1; pointer-events: none; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-around;
+  gap: 0;
+}
+.bg-row {
+  display: flex; white-space: nowrap;
+  animation: bgScroll 28s linear infinite;
+}
+.bg-row:nth-child(2)  { animation-duration: 36s; animation-direction: reverse; }
+.bg-row:nth-child(3)  { animation-duration: 22s; animation-delay: -5s; }
+.bg-row:nth-child(4)  { animation-duration: 40s; animation-direction: reverse; animation-delay: -10s; }
+.bg-row:nth-child(5)  { animation-duration: 25s; animation-delay: -8s; }
+.bg-row:nth-child(6)  { animation-duration: 33s; animation-direction: reverse; animation-delay: -3s; }
+.bg-row span {
+  font-family: 'Jersey 15', sans-serif; font-size: 9vw; font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(59,130,246,0.025);
+  padding: 0 2vw; user-select: none; letter-spacing: -2px;
+}
+@keyframes bgScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
-    .title-font {
-        font-family: 'Orbitron', sans-serif;
-    }
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 10001; width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
+  background-size: 200% 100%;
+  box-shadow: 0 0 12px var(--primary), 0 0 24px rgba(59,130,246,0.4);
+  animation: shimmerBar 2s linear infinite;
+  transition: width .08s linear;
+}
+@keyframes shimmerBar { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
 
-    .nav-link {
-        position: relative;
-        padding: 8px 16px;
-        transition: all 0.3s ease;
-        color: var(--primary-color);
-        border: 1px solid transparent;
-        cursor: pointer;
-    }
-    .nav-link:hover, .nav-link.active {
-        background: var(--border-color);
-        text-shadow: 0 0 8px var(--primary-color);
-        border-color: var(--primary-color);
-    }
+/* ── LAYOUT ── */
+.layout { display: grid; grid-template-columns: 100px 1fr; min-height: 100vh; }
 
-    .content-panel {
-        background: rgba(10, 10, 20, 0.8);
-        backdrop-filter: blur(5px);
-        border: 1px solid var(--border-color);
-        overflow-y: auto;
-        display: none; /* Hidden by default */
-    }
-    .content-panel.active {
-        display: block; /* Shown when active */
-    }
+/* ── SIDEBAR ── */
+aside {
+  border-right: 1px solid var(--line-bright);
+  display: flex; flex-direction: column; justify-content: space-between;
+  align-items: center; padding: 2rem 0;
+  position: sticky; top: 0; height: 100vh;
+  background: rgba(3,5,15,0.88); backdrop-filter: blur(16px); z-index: 50;
+}
+.brand-box {
+  width: 58px; height: 58px; background: var(--primary);
+  display: flex; justify-content: center; align-items: center;
+  transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .3s; flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(59,130,246,0.35);
+  animation: brandPulse 3s ease-in-out infinite;
+}
+@keyframes brandPulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(59,130,246,0.35); }
+  50% { box-shadow: 0 0 28px rgba(59,130,246,0.6), 0 0 50px rgba(59,130,246,0.2); }
+}
+.brand-box:hover { transform: rotate(90deg); box-shadow: 0 0 32px rgba(59,130,246,0.65); }
+.brand-box img { width: 32px; height: 32px; filter: brightness(0) invert(1); }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--primary-color);
-        border-radius: 4px;
-    }
+.nav-menu { display: flex; flex-direction: column; gap: 2rem; }
+.nav-btn {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 1rem; font-weight: 700; color: #1e3a5f;
+  text-decoration: none; letter-spacing: 3px;
+  transition: color .2s, text-shadow .2s; padding: 10px 0; position: relative;
+}
+.nav-btn::before {
+  content: ''; position: absolute; left: -1px; top: 0;
+  width: 2px; height: 0;
+  background: linear-gradient(to bottom, var(--primary-bright), var(--secondary));
+  transition: height .3s cubic-bezier(.16,1,.3,1);
+}
+.nav-btn:hover::before, .nav-btn.active::before { height: 100%; }
+.nav-btn:hover, .nav-btn.active {
+  color: var(--primary-bright);
+  text-shadow: 0 0 14px rgba(96,165,250,0.6);
+}
+.sys-clock {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: 'Jersey 15', monospace;
+  font-size: 1rem; color: #1e3a5f; letter-spacing: 2px;
+}
 
-    .project-card {
-        background: rgba(0, 246, 255, 0.03);
-        border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        opacity: 0;
-        transform: translateY(20px);
-        display: flex; /* Added for consistent card layout */
-        flex-direction: column; /* Added for consistent card layout */
-    }
-    .project-card.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .project-card:before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(0, 246, 255, 0.15), transparent 40%);
-        transform: scale(0);
-        transition: transform 0.5s ease;
-        pointer-events: none;
-    }
-    .project-card-wrapper:hover .project-card {
-        border-color: var(--primary-color);
-        transform: translateY(-4px);
-        box-shadow: 0 0 20px rgba(0, 246, 255, 0.2);
-    }
-    .project-card-wrapper:hover .project-card:before {
-        transform: scale(1);
-    }
+/* ── MAIN ── */
+main { padding: 4rem 6rem; min-height: 100vh; width: 100%; overflow-x: hidden; }
 
-    .img-placeholder {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 246, 255, 0.1);
-        color: var(--primary-color);
-        font-size: 0.8rem;
-        text-align: center;
-        height: 100%;
-        width: 100%;
-    }
+/* ── PANELS ── */
+.panel { display: none; opacity: 0; transform: translateY(20px); }
+.panel.active { display: block; animation: snapIn .45s cubic-bezier(.16,1,.3,1) forwards; }
+@keyframes snapIn { to { opacity: 1; transform: translateY(0); } }
 
-    .typing-cursor {
-        display: inline-block;
-        width: 10px;
-        height: 1.5em;
-        background-color: var(--primary-color);
-        animation: blink 1s step-end infinite;
-    }
-    @keyframes blink {
-        50% { opacity: 0; }
-    }
+/* ── HERO ── */
+.hero { display: flex; flex-direction: column; justify-content: center; min-height: 80vh; }
+.hero-sub {
+  font-size: 1rem; letter-spacing: 6px; color: var(--primary);
+  margin-bottom: 1.5rem; opacity: 0.7;
+}
+.hero h1 {
+  font-family: 'Jersey 15', sans-serif;
+  font-size: clamp(3.5rem, 11vw, 9.5rem); font-weight: 800;
+  line-height: 0.85; margin-bottom: 3rem; letter-spacing: -3px;
+}
+.hero h1 .line1, .hero h1 .line2 { display: block; color: var(--text); }
+.hero h1 .line3 {
+  display: block;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 0 22px rgba(59,130,246,0.45));
+}
 
-    .glitch {
-        position: relative;
-    }
-    .glitch:hover:before, .glitch:hover:after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--background-color);
-        overflow: hidden;
-    }
-    .glitch:hover:before {
-        left: 2px;
-        text-shadow: -2px 0 var(--secondary-color);
-        animation: glitch-anim-1 2s infinite linear alternate-reverse;
-    }
-    .glitch:hover:after {
-        left: -2px;
-        text-shadow: -2px 0 var(--primary-color), 2px 2px var(--secondary-color);
-        animation: glitch-anim-2 2s infinite linear alternate-reverse;
-    }
-    @keyframes glitch-anim-1 { 0%, 100% { clip-path: inset(45% 0 50% 0); } 20% { clip-path: inset(10% 0 85% 0); } 40% { clip-path: inset(60% 0 30% 0); } 60% { clip-path: inset(30% 0 65% 0); } 80% { clip-path: inset(80% 0 5% 0); } }
-    @keyframes glitch-anim-2 { 0%, 100% { clip-path: inset(5% 0 90% 0); } 20% { clip-path: inset(70% 0 25% 0); } 40% { clip-path: inset(40% 0 55% 0); } 60% { clip-path: inset(15% 0 80% 0); } 80% { clip-path: inset(90% 0 5% 0); } }
-  </style>
+/* ── GLITCH ── */
+.glitch-wrap { position: relative; display: inline-block; }
+.glitch-wrap::before, .glitch-wrap::after {
+  content: attr(data-text); position: absolute; inset: 0;
+  font-family: inherit; font-size: inherit; font-weight: inherit;
+  letter-spacing: inherit; line-height: inherit; pointer-events: none;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.glitch-wrap::before { animation: glitch1 5s infinite steps(1); opacity: 0.5; }
+.glitch-wrap::after  { animation: glitch2 5s infinite steps(1) .07s; opacity: 0.35; }
+@keyframes glitch1 {
+  0%,85%,100% { clip-path: inset(100% 0 0 0); transform: translate(0,0); }
+  86%  { clip-path: inset(10% 0 80% 0); transform: translate(-3px,0); }
+  89%  { clip-path: inset(55% 0 30% 0); transform: translate(3px,0); }
+  92%  { clip-path: inset(75% 0 5% 0);  transform: translate(-2px,0); }
+  95%  { clip-path: inset(30% 0 60% 0); transform: translate(2px,0); }
+}
+@keyframes glitch2 {
+  0%,85%,100% { clip-path: inset(100% 0 0 0); transform: translate(0,0); }
+  87%  { clip-path: inset(40% 0 50% 0); transform: translate(3px,0); }
+  90%  { clip-path: inset(5% 0 90% 0);  transform: translate(-3px,0); }
+  93%  { clip-path: inset(65% 0 15% 0); transform: translate(2px,0); }
+  96%  { clip-path: inset(20% 0 70% 0); transform: translate(-1px,0); }
+}
+
+/* ── COUNTERS ── */
+.data-row {
+  display: flex; gap: 4rem;
+  border-top: 1px solid var(--line-bright);
+  padding-top: 2rem; margin-bottom: 4rem;
+}
+.data-node { display: flex; flex-direction: column; }
+.d-val {
+  font-family: 'Jersey 15', sans-serif; font-size: 4rem; font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--text) 30%, var(--primary-bright));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.d-lbl { font-size: 1rem; font-weight: 700; color: var(--primary); letter-spacing: 3px; margin-top: 0.5rem; }
+
+/* ── TICKER ── */
+.ticker-wrap {
+  border-top: 1px solid var(--line-bright); border-bottom: 1px solid var(--line-bright);
+  overflow: hidden; padding: 0.7rem 0; position: relative; margin-bottom: 4rem;
+}
+.ticker-wrap::before, .ticker-wrap::after {
+  content: ''; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2;
+}
+.ticker-wrap::before { left: 0; background: linear-gradient(to right, var(--base), transparent); }
+.ticker-wrap::after  { right: 0; background: linear-gradient(to left, var(--base), transparent); }
+.ticker-track { display: flex; width: max-content; animation: tickerAnim 28s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes tickerAnim { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item { font-size: 1rem; font-weight: 700; letter-spacing: 3px; color: #2a5080; padding: 0 2rem; white-space: nowrap; transition: color .2s; }
+.ticker-item:hover { color: var(--primary-bright); }
+.ticker-item span { color: var(--primary); margin-right: 0.6rem; }
+
+/* ── FEATURED ── */
+.feat-label {
+  font-size: 1rem; font-weight: 700; letter-spacing: 5px; color: var(--primary);
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.feat-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--line-bright), transparent); }
+.feat-card {
+  display: flex; align-items: center; gap: 2.5rem;
+  border: 1px solid var(--line-bright); padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, box-shadow .3s; text-decoration: none;
+  background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, transparent 60%);
+}
+.feat-card::before {
+  content: 'FEATURED'; position: absolute; top: 1rem; right: 1rem;
+  font-size: 1rem; letter-spacing: 3px; font-weight: 700;
+  color: var(--base); background: var(--primary); padding: 0.2rem 0.6rem;
+}
+.feat-card:hover { border-color: var(--primary); box-shadow: 0 0 50px rgba(59,130,246,0.2), 0 0 80px rgba(59,130,246,0.08); }
+.feat-img {
+  width: 130px; height: 130px; object-fit: cover; flex-shrink: 0;
+  filter: grayscale(50%); transition: filter .4s, transform .4s;
+  border: 1px solid var(--line-bright);
+}
+.feat-card:hover .feat-img { filter: grayscale(0%); transform: scale(1.04); }
+.feat-meta { flex: 1; }
+.feat-name { font-family: 'Jersey 15', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; line-height: 1; }
+.feat-desc { font-size: 1rem; color: #4a7aaa; text-transform: none; margin-bottom: 1.25rem; line-height: 1.6; }
+.feat-cta {
+  display: inline-block; font-size: 1rem; font-weight: 700; letter-spacing: 3px;
+  color: var(--base); background: linear-gradient(90deg, var(--primary), var(--secondary));
+  padding: 0.6rem 1.5rem; transition: opacity .2s, transform .2s;
+}
+.feat-cta:hover { opacity: 0.85; transform: translateX(4px); }
+
+/* ── SECTION HEADER ── */
+.section-head {
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--line-bright);
+  padding-bottom: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+}
+.section-head h2 {
+  font-family: 'Jersey 15', sans-serif; font-size: 3.5rem; line-height: 1; letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--text), var(--primary-bright));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.count {
+  font-family: 'Jersey 15', monospace; font-size: 1rem; font-weight: 700;
+  color: var(--base); background: linear-gradient(90deg, var(--primary), var(--secondary));
+  padding: 0.5rem 1.25rem; border-radius: 99px; letter-spacing: 2px;
+}
+
+/* ── SEARCH ── */
+.search-wrap { margin-bottom: 2rem; position: relative; }
+.search-icon { position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%); color: #1e3a5f; pointer-events: none; }
+.search-input {
+  width: 100%; background: rgba(59,130,246,0.03);
+  border: 1px solid var(--line-bright); border-left: 3px solid var(--primary);
+  color: var(--text); font-family: 'Jersey 15', sans-serif;
+  font-size: 1rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  padding: 0.85rem 1.25rem 0.85rem 3rem;
+  outline: none; transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.search-input::placeholder { color: #1e3a5f; }
+.search-input:focus { background: rgba(59,130,246,0.06); border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.08); }
+.no-results { text-align: center; padding: 4rem; color: #1e3a5f; font-size: 1rem; letter-spacing: 3px; display: none; }
+
+/* ── BENTO ── */
+.bento { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 1.5rem; }
+
+/* ── CARDS ── */
+.card {
+  display: block; text-decoration: none;
+  background: rgba(3,5,15,0.5); border: 1px solid var(--line-bright);
+  padding: 1.5rem; transition: all .3s cubic-bezier(.16,1,.3,1);
+  position: relative; animation: fadeCard .4s ease both;
+}
+@keyframes fadeCard { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.card::after {
+  content: ''; position: absolute; top: 5px; left: 5px;
+  width: 100%; height: 100%; border: 1px solid var(--primary);
+  z-index: -1; transition: all .3s cubic-bezier(.16,1,.3,1); opacity: 0;
+}
+.card:hover { transform: translate(-4px,-4px); border-color: var(--primary-bright); background: rgba(59,130,246,0.07); box-shadow: 0 8px 30px rgba(59,130,246,0.18), inset 0 0 20px rgba(59,130,246,0.04); }
+.card:hover::after { opacity: 1; transform: translate(5px,5px); }
+.badge {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  font-size: 1rem; font-weight: 700; letter-spacing: 2px; padding: 0.25rem 0.6rem; z-index: 2;
+}
+.badge-new   { background: var(--primary); color: #fff; }
+.badge-hot   { background: #ef4444; color: #fff; box-shadow: 0 0 8px rgba(239,68,68,0.5); }
+.badge-steam { background: #1b2838; color: #a8d8f8; border: 1px solid #66c0f4; }
+.badge-xbox  { background: #107c10; color: #fff; border: 1px solid #5dc45d; }
+.badge-vr    { background: var(--secondary); color: #fff; }
+.c-media {
+  width: 100%; height: 165px; background: var(--line);
+  margin-bottom: 1.25rem; overflow: hidden; border: 1px solid var(--line-bright); position: relative;
+}
+.c-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(3,5,15,0.35), transparent); pointer-events: none;
+}
+.c-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(100%) contrast(110%) brightness(0.75);
+  transition: filter .4s, transform .4s;
+}
+.card:hover .c-media img { filter: grayscale(0%) contrast(100%) brightness(1); transform: scale(1.06); }
+.c-title {
+  font-family: 'Jersey 15', sans-serif; font-size: 1.25rem; font-weight: 800;
+  color: var(--text); margin-bottom: 0.4rem; transition: color .2s;
+}
+.card:hover .c-title { color: var(--primary-bright); }
+.c-desc { font-size: 1rem; color: #2a5080; line-height: 1.5; text-transform: none; font-weight: 500; }
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(3,5,15,0.93);
+  backdrop-filter: blur(16px); z-index: 2000; display: none;
+  place-items: center; padding: 2rem;
+}
+.overlay.open { display: grid; animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--base); border: 1px solid var(--primary);
+  width: 100%; max-width: 900px; padding: 4rem; position: relative;
+  box-shadow: 0 0 80px rgba(59,130,246,0.25), 14px 14px 0 rgba(59,130,246,0.07), inset 0 0 60px rgba(59,130,246,0.03);
+  animation: slideUp .35s cubic-bezier(.16,1,.3,1);
+}
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.close-x {
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-family: 'Jersey 15', sans-serif; font-size: 3rem; font-weight: 800;
+  color: var(--text); transition: color .2s;
+}
+.close-x:hover { color: var(--primary); }
+.m-head { font-family: 'Jersey 15', sans-serif; font-size: 3rem; margin-bottom: 2rem; line-height: 1; }
+.m-content { text-transform: none; font-size: 1.1rem; color: #7aa0c0; line-height: 1.8; }
+.m-content h4 { color: var(--primary-bright); font-family: 'Jersey 15', sans-serif; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; }
+
+/* ── SCROLL-TO-TOP ── */
+.scroll-top {
+  position: fixed; bottom: 2rem; right: 2rem;
+  width: 44px; height: 44px; border: 1px solid var(--line-bright);
+  background: rgba(3,5,15,0.85); display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--primary); z-index: 200;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, border-color .2s, box-shadow .2s, transform .2s; backdrop-filter: blur(8px);
+}
+.scroll-top.visible { opacity: 1; pointer-events: auto; }
+.scroll-top:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(59,130,246,0.4); transform: translateY(-3px); }
+
+/* ── KB HINT ── */
+.kb-hint {
+  position: fixed; bottom: 1.5rem; left: 120px;
+  font-size: 1rem; letter-spacing: 2px; color: #1e3a5f; z-index: 100; pointer-events: none;
+}
+.kb-hint kbd {
+  background: #0a1525; border: 1px solid #1e3a5f; border-radius: 3px;
+  padding: .1rem .3rem; font-family: 'Jersey 15', monospace; font-size: 1rem; color: #2a4a6e;
+}
+
+/* ── HAMBURGER ── */
+.ham-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 8px; }
+.ham-btn span { display: block; width: 22px; height: 2px; background: var(--text); transition: all .3s; }
+.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { opacity: 0; }
+.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  aside {
+    width: 100%; height: 65px; flex-direction: row; padding: 0 1.5rem;
+    border-right: none; border-bottom: 1px solid var(--line-bright);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-menu {
+    flex-direction: column; position: fixed; top: 65px; left: 0; right: 0;
+    background: rgba(3,5,15,0.97); backdrop-filter: blur(20px);
+    padding: 2rem; gap: 1.5rem; border-bottom: 1px solid var(--line-bright);
+    transform: translateY(-110%); transition: transform .35s cubic-bezier(.16,1,.3,1); z-index: 99;
+  }
+  .nav-menu.open { transform: translateY(0); }
+  .nav-btn { writing-mode: horizontal-tb; transform: none; font-size: 1.1rem; letter-spacing: 4px; }
+  .nav-btn::before { left: 0; top: auto; bottom: -2px; width: 0; height: 2px; }
+  .nav-btn:hover::before, .nav-btn.active::before { width: 100%; height: 2px; }
+  .ham-btn { display: flex; }
+  .sys-clock, .kb-hint { display: none; }
+  main { padding: 2rem 1.5rem; }
+  .data-row { flex-direction: column; gap: 2rem; }
+  .feat-card { flex-direction: column; align-items: flex-start; }
+  .feat-img { width: 100%; height: 200px; }
+  .bg-row span { font-size: 16vw; }
+  .scroll-top { bottom: 1.5rem; right: 1.5rem; }
+}
+@media (max-width: 600px) {
+  .bento { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .section-head h2 { font-size: 2.2rem; }
+  .modal { padding: 2rem; }
+  .m-head { font-size: 2rem; }
+}
+</style>
 </head>
-<body class="text-sm">
-<div class="spotlight"></div>
-<div class="scanline"></div>
+<body>
 
-<div class="relative min-h-screen flex flex-col md:flex-row p-4 gap-4 z-10">
-  <!-- Sidebar / Navigation -->
-  <aside class="flex-shrink-0 md:w-64 flex flex-col gap-4">
-    <header class="border border-[var(--border-color)] p-4 text-center">
-      <div class="glitch" data-text="STARDOM">
-        <h1 class="title-font text-2xl font-black text-white glow">STARDOM</h1>
-      </div>
-      <p class="text-[var(--primary-color)] text-xs tracking-widest">GAME STUDIOS</p>
-    </header>
-    <nav class="border border-[var(--border-color)] p-4 flex-grow flex flex-col gap-2">
-      <div class="nav-link active" data-target="home">_HOME</div>
-      <div class="nav-link" data-target="games">_GAMES</div>
-      <div class="nav-link" data-target="mods">_MODS</div>
-      <div class="nav-link" data-target="apps">_APPS</div>
-      <div class="nav-link" data-target="socials">_SOCIALS</div>
-      <div class="nav-link" data-target="blog">_BLOG</div>
-    </nav>
-    <footer class="border border-[var(--border-color)] p-2 text-center text-xs text-gray-500">
-      &copy; 2025 Stardom OS v1.0
-    </footer>
+<div class="noise"></div>
+<div class="cursor" id="ptr"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="bg-scroller" id="bgScroller"></div>
+<div class="progress-bar" id="pbar"></div>
+<div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<div class="layout">
+  <aside>
+    <div class="brand-box int" onclick="nav('home')">
+      <img src="https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/stardom-logo%20(1).png" alt="SGS" onerror="this.style.display='none'">
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <div class="nav-btn int active" data-view="home">INDEX</div>
+      <div class="nav-btn int" data-view="games">GAMES</div>
+      <div class="nav-btn int" data-view="mods">MODS</div>
+      <div class="nav-btn int" data-view="apps">APPS</div>
+      <div class="nav-btn int" data-view="socials">NETWORK</div>
+      <div class="nav-btn int" data-view="blog">LOGS</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1rem">
+      <button class="ham-btn int" id="hamBtn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="sys-clock" id="clk">00:00:00</div>
+    </div>
   </aside>
 
-  <!-- Main Content Area -->
-  <main class="flex-grow h-[calc(100vh-2rem)] md:h-auto">
-    <!-- Home Panel -->
-    <div id="home" class="content-panel active h-full">
-      <div class="p-8 h-full flex flex-col justify-center items-center text-center">
-        <h2 class="title-font text-5xl md:text-7xl font-black text-white mb-2 glow">SYSTEM ONLINE</h2>
-        <p class="text-lg text-gray-300 mb-6">Welcome to the Stardom Game Studios Terminal.</p>
-        <p class="max-w-xl text-gray-400">We are a passionate team dedicated to creating unforgettable gaming experiences and innovative applications. Select a directory from the navigation panel to explore our projects.</p>
-      </div>
-    </div>
-
-    <!-- Other Panels will be injected here by JS -->
-    <div id="games" class="content-panel h-full"></div>
-    <div id="mods" class="content-panel h-full"></div>
-    <div id="apps" class="content-panel h-full"></div>
-    <div id="socials" class="content-panel h-full"></div>
-    <div id="blog" class="content-panel h-full"></div>
-  </main>
+  <main id="mount"></main>
 </div>
 
-<!-- Popup Modal -->
-<div id="popup-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center z-50 hidden">
-  <div class="content-panel w-11/12 md:w-2/3 lg:w-1/2 max-w-4xl max-h-[80vh] flex flex-col">
-    <div class="p-4 border-b border-[var(--border-color)] flex justify-between items-center flex-shrink-0">
-      <h3 id="popup-title" class="title-font text-xl font-bold text-white glow">Blog Post</h3>
-      <button id="close-popup" class="text-[var(--primary-color)] hover:text-white text-3xl leading-none">&times;</button>
-    </div>
-    <div id="popup-content" class="p-6 md:p-8 overflow-y-auto text-gray-300">
-      <!-- Content will be injected here -->
-    </div>
+<div class="overlay" id="ovr">
+  <div class="modal">
+    <div class="close-x int" id="cls">×</div>
+    <h2 class="m-head" id="mh"></h2>
+    <div class="m-content" id="mc"></div>
   </div>
 </div>
 
+<div class="kb-hint">
+  <kbd>1</kbd>–<kbd>6</kbd> NAVIGATE &nbsp;·&nbsp; <kbd>ESC</kbd> CLOSE
+</div>
 
 <script>
-  // --- DATA ---
-  const data = {
-      games: [
-          { name: "JokerJack", logo: "https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png", description: "Balatro, but Black Jack", url: "https://jokerjack.stardomga.me" },
-          { name: "Mogging Simulator 2025", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/mogging.png", description: "Happy April Fools!", url: "https://mogging.stardomga.me" },
-          { name: "Perspective Remastered", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/perspectiveRemastered.png", description: "Out Now on Steam!", url: "https://store.steampowered.com/app/3528500/Perspective_Remastered/" },
-          { name: "Trust Me", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/m.png", description: "A Platformer made for Brackeys Game Jam 2025", url: "https://stardomgames.itch.io/trust-me" },
-          { name: "AI Invasion", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/AI.png", description: "Risk mixed with DND and AI.", url: "https://ai-invasion.stardomga.me" },
-          { name: "Courtroom Chaos", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/cc.png", description: "Represent Clients to an AI Judge!", url: "https://courtroom-chaos.stardomga.me" },
-          { name: "Cube Conquest", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/1000018639-removebg-preview.png", description: "Gather resources and defend your base!", url: "https://stardomgames.itch.io/cube-conquest" },
-          { name: "Gravity Grapple: Dimensions", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/38974805_1162594521647001_8678711909508751475_n.png", description: "Swing Through the Multiverse! (VR)", url: "https://www.meta.com/experiences/8988079141207254/?utm_source=oculus&utm_medium=share" },
-          { name: "Productivity Quest 2024", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Productivity.png", description: "Become a Corporate Slave! Man I Love April!", url: "https://stardomgames.itch.io/productivity-quest-2024" },
-          { name: "Time Scale", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Time%20Scale%20Logo.png", description: "Reverse Time to Solve Puzzles", url: "https://stardomgames.itch.io/time-scale" },
-          { name: "Gravity Grapple", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/grapple.png", description: "Swing Through Space!", url: "https://stardomgames.itch.io/gravity-grapple" },
-          { name: "Parachute Fall", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/parachute.png", description: "Fall and Avoid Bombs! (Suggested on Mobile)", url: "https://parachutefall.stardomga.me/game/index.html" },
-          { name: "Kurger Bing Simulator", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Kurger%20Bing%20Simulator%20Logo.png", description: "Become an Amazing Kurger Bing Employee!", url: "https://stardomgames.itch.io/kurger-bing-heatn-it-up-simulator-2023-remastered-remix-ultimate-special-edition" },
-          { name: "Project Multiverse", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Multiverse%20Icon.png", description: "Cancelled.", url: "https://stardomgames.itch.io/project-multiverse" },
-          { name: "Yet Another Rip-off", logo: "https://github.com/jordan-trempert/media/blob/main/YARO.png?raw=true", description: "A collection of games commonly remade", url: "https://stardomgames.itch.io/yaro" },
-          { name: "Project Paradox", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Paradox.png", description: "Travel Through Different Worlds to Stop a Zombie Apocalypse", url: "https://stardomgames.itch.io/project-paradox" },
-          { name: "Green Square Adventures", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Green%20Square%20Adventures.png", description: "A platformer with zero bugs!", url: "https://stardomgames.itch.io/green-square-adventures" },
-          { name: "Perspective Part 1", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Perspective.png", description: "A Non-Euclidean Puzzle Game", url: "https://stardomgames.itch.io/perspective-part-1" },
-          { name: "Dungeon Slayer", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Dungeon%20Slayer.png", description: "Simple Rouge-like Dungeon Crawler", url: "https://github.com/StardomGames/Dungeon-Slayer/releases" },
-          { name: "A Blocky Puzzle 2", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/Untitled%20design.png", description: "A Puzzle Game, Sequel to A Blocky Puzzle", url: "https://github.com/StardomGames/A-Blocky-Puzzle-2/releases" },
-          { name: "A Blocky Puzzle", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/ABP.png", description: "A Simple Puzzle Platformer", url: "https://github.com/StardomGames/A-Blocky-Puzzle/releases" }
-      ],
-      mods: [
-          { name: "Stardom's Magic", logo: "https://cdn.modrinth.com/data/LRuyfCnn/ea8494ae3cc0161fa3e457e85051875133f1536e_96.webp", description: "A mod completely overhauling Minecraft's magic system!", url: "https://modrinth.com/mod/stardoms-magic/" },
-          { name: "Stardom's Ghasts", logo: "https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png", description: "This mod adds armor for Happy Ghasts!", url: "https://modrinth.com/mod/stardoms-ghasts/" },
-          { name: "Stardom's Flora", logo: "https://cdn.modrinth.com/data/AbtnRxbA/727d6bb47975eaa34343f1510fc97428671ab1d1.png", description: "This mod adds more plants to the game!", url: "https://modrinth.com/mod/stardoms-flora/" },
-          { name: "Stardom's Colors", logo: "https://cdn.modrinth.com/data/5CpvIduG/45302ae4c31cdd3483c624b3253ca1cb9e8c334d_96.webp", description: "This mod allows more customizable dying of certain blocks!", url: "https://modrinth.com/mod/stardoms-colors/" },
-          { name: "Stardom's Extreme End", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/ae13dcdb84cb157c3f8b35c5077688d058a5458f.png", description: "This mod overhauls the end in an extreme way!", url: "https://modrinth.com/mod/stardoms-extreme-end/" },
-          { name: "Stardom's Skys", logo: "https://cdn.modrinth.com/data/KsNlEiNa/e53ca3152f9872d4556a5d27af480eddb9787956_96.webp", description: "An addon for Stardom's Extreme End which adds a whole new dimension", url: "https://modrinth.com/mod/stardoms-skys/" },
-          { name: "Stardom's Sync", logo: "https://cdn.modrinth.com/data/iLPzEDlD/55a2d8c5dfa847d149b34dc54fa6f6952afcb31f.png", description: "Syncs real life time and weather into Minecraft!", url: "https://modrinth.com/mod/stardoms-sync/" },
-          { name: "Stardom's Client", logo: "https://cdn.modrinth.com/data/eCxwIAgh/070f5bac4dc3ae760796d66458e006b7c81fd8ba.png", description: "Adds many QoL and customization feature to Minecraft!", url: "https://modrinth.com/mod/stardoms-client/" },
-          { name: "Stardom's Dungeons", logo: "https://cdn.modrinth.com/data/iX99Kymi/a8adfec3a25b5b801c0518feaf264d4b964c5554.png", description: "Adds difficult end-game dungeons to Minecraft!", url: "https://modrinth.com/mod/stardoms-dungeons/" }
-      ],
-      apps: [
-          { name: "chatterbox", logo: "https://chatterbox.stardomga.me/chatterbox.png", description: "Connect with friends and share videos, pcitures, and more!", url: "https://chatterbox.stardomga.me" },
-          { name: "Stardom Mods", logo: "https://mods.stardomga.me/images/favicon.png", description: "Upload/Download mods for your favorite games!", url: "https://mods.stardomga.me" },
-          { name: "DeskThing", logo: "https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/android-chrome-192x192.png", description: "Display and control your spotify music!", url: "https://deskthing.stardomga.me" },
-          { name: "Moviewer", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/moviewer.png", description: "View, Rate, and comment on movies!", url: "https://moviewer.stardomga.me" }
-      ],
-      socials: [
-          { name: "chatterbox", logo: "https://chatterbox.stardomga.me/chatterbox.png", url: "https://chatterbox.stardomga.me/@stardom" },
-          { name: "Itch.io", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png", url: "https://stardomgames.itch.io/" },
-          { name: "Spotify", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/109018_media_512x512.png", url: "https://open.spotify.com/artist/1WQqvnEv8S9Bc37dqXvQbS?si=YzfOiVSKTEWWAnLdioV85w&utm_source=copy-link" },
-          { name: "YouTube", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/youtube.png", url: "https://www.youtube.com/channel/UCgmh2uIuUPxIep-qJ2WOEbg" },
-          { name: "Discord", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/discord.png", url: "https://discord.gg/CGqT9WX7sU" },
-          { name: "Instagram", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png", url: "https://www.instagram.com/stardomgamestudios/" },
-          { name: "X", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/x%20logo.png", url: "https://twitter.com/Stardom_Games" },
-          { name: "GitHub", logo: "https://github.com/jordan-trempert/media/blob/main/github.png?raw=true", url: "https://github.com/stardomgames" },
-          { name: "Patreon", logo: "https://raw.githubusercontent.com/jordan-trempert/media/main/patreon.jpg", url: "https://patreon.com/stardomgames" },
-          { name: "Reddit", logo: "https://cdn.fastly.picmonkey.com/content4/previews/social/social_54_550.webp", url: "https://reddit.com/r/stardomgames" }
-      ],
-      blog: [
-          {
-              name: "JokerJack Roadmap",
-              logo: "https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png",
-              content: `
-<h4 class="text-lg font-bold text-[var(--primary-color)] mb-2">JokerJack 1.5.0 Has Been Released!</h4>
-`
-          }
-      ]
-  };
+/* ─── DATA ─── */
+const ds = {
+  games: [
+    { name:"JokerJack",                  logo:"https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png",                                                                          description:"Balatro, but Black Jack",                   url:"https://jokerjack.stardomga.me",                                                             badge:"xbox"   },
+    { name:"Mogging Simulator 2025",      logo:"https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/mogging.png",                                                             description:"Happy April Fools!",                         url:"https://mogging.stardomga.me",                                                                  },
+    { name:"Perspective Remastered",      logo:"https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/perspectiveRemastered.png",                                               description:"Out Now on Steam!",                          url:"https://store.steampowered.com/app/3528500/Perspective_Remastered/",                         badge:"steam" },
+    { name:"Trust Me",                    logo:"https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/m.png",                                                                  description:"Brackeys Game Jam 2025",                     url:"https://stardomgames.itch.io/trust-me"                                                                     },
+    { name:"AI Invasion",                 logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/AI.png",                                                                            description:"Risk mixed with DND and AI.",                url:"https://ai-invasion.stardomga.me"                                                                          },
+    { name:"Courtroom Chaos",             logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/cc.png",                                                                            description:"Represent Clients to an AI Judge!",          url:"https://courtroom-chaos.stardomga.me"                                                                      },
+    { name:"Cube Conquest",               logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/1000018639-removebg-preview.png",                                                   description:"Gather resources and defend your base!",     url:"https://stardomgames.itch.io/cube-conquest"                                                                },
+    { name:"Gravity Grapple: Dimensions", logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/38974805_1162594521647001_8678711909508751475_n.png",                               description:"Swing Through the Multiverse! (VR)",         url:"https://www.meta.com/experiences/8988079141207254/",                                         badge:"vr"    },
+    { name:"Productivity Quest 2024",     logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Productivity.png",                                                                  description:"Become a Corporate Slave!",                  url:"https://stardomgames.itch.io/productivity-quest-2024"                                                      },
+    { name:"Time Scale",                  logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Time%20Scale%20Logo.png",                                                           description:"Reverse Time to Solve Puzzles",              url:"https://stardomgames.itch.io/time-scale"                                                                   },
+    { name:"Gravity Grapple",             logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/grapple.png",                                                                       description:"Swing Through Space!",                       url:"https://stardomgames.itch.io/gravity-grapple"                                                              },
+    { name:"Parachute Fall",              logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/parachute.png",                                                                     description:"Fall and Avoid Bombs!",                      url:"https://parachutefall.stardomga.me/game/index.html"                                                        },
+    { name:"Kurger Bing Simulator",       logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Kurger%20Bing%20Simulator%20Logo.png",                                              description:"Become an Amazing Kurger Bing Employee!",    url:"https://stardomgames.itch.io/kurger-bing-heatn-it-up-simulator-2023-remastered-remix-ultimate-special-edition"},
+    { name:"Project Multiverse",          logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Multiverse%20Icon.png",                                                   description:"Cancelled.",                                 url:"https://stardomgames.itch.io/project-multiverse"                                                           },
+    { name:"Yet Another Rip-off",         logo:"https://github.com/jordan-trempert/media/blob/main/YARO.png?raw=true",                                                                           description:"A collection of commonly remade games",      url:"https://stardomgames.itch.io/yaro"                                                                         },
+    { name:"Project Paradox",             logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Project%20Paradox.png",                                                             description:"Travel Through Different Worlds",            url:"https://stardomgames.itch.io/project-paradox"                                                              },
+    { name:"Green Square Adventures",     logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Green%20Square%20Adventures.png",                                                   description:"A platformer with zero bugs!",               url:"https://stardomgames.itch.io/green-square-adventures"                                                      },
+    { name:"Perspective Part 1",          logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Perspective.png",                                                                   description:"A Non-Euclidean Puzzle Game",                url:"https://stardomgames.itch.io/perspective-part-1"                                                           },
+    { name:"Dungeon Slayer",              logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Dungeon%20Slayer.png",                                                              description:"Simple Rouge-like Dungeon Crawler",           url:"https://github.com/StardomGames/Dungeon-Slayer/releases"                                                   },
+    { name:"A Blocky Puzzle 2",           logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/Untitled%20design.png",                                                             description:"Sequel to A Blocky Puzzle",                  url:"https://github.com/StardomGames/A-Blocky-Puzzle-2/releases"                                                },
+    { name:"A Blocky Puzzle",             logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/ABP.png",                                                                           description:"A Simple Puzzle Platformer",                 url:"https://github.com/StardomGames/A-Blocky-Puzzle/releases"                                                  }
+  ],
+  mods: [
+    { name:"Stardom's Magic",       logo:"https://cdn.modrinth.com/data/LRuyfCnn/ea8494ae3cc0161fa3e457e85051875133f1536e_96.webp",  description:"Overhauling Minecraft's magic system!",     url:"https://modrinth.com/mod/stardoms-magic/",        badge:"new" },
+    { name:"Stardom's Ghasts",      logo:"https://cdn.modrinth.com/data/ZcQ7y4VH/37c31cb5f90119d18bef8d093dc436c688f3a2a7.png",     description:"Armor for Happy Ghasts!",                  url:"https://modrinth.com/mod/stardoms-ghasts/",       badge:"new" },
+    { name:"Stardom's Flora",       logo:"https://cdn.modrinth.com/data/AbtnRxbA/727d6bb47975eaa34343f1510fc97428671ab1d1.png",     description:"More plants for the game!",                url:"https://modrinth.com/mod/stardoms-flora/"                   },
+    { name:"Stardom's Colors",      logo:"https://cdn.modrinth.com/data/5CpvIduG/45302ae4c31cdd3483c624b3253ca1cb9e8c334d_96.webp", description:"More customizable block dying!",           url:"https://modrinth.com/mod/stardoms-colors/"                  },
+    { name:"Stardom's Extreme End", logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/ae13dcdb84cb157c3f8b35c5077688d058a5458f.png", description:"Extreme End overhaul!", url:"https://modrinth.com/mod/stardoms-extreme-end/"             },
+    { name:"Stardom's Skys",        logo:"https://cdn.modrinth.com/data/KsNlEiNa/e53ca3152f9872d4556a5d27af480eddb9787956_96.webp", description:"A whole new dimension!",                  url:"https://modrinth.com/mod/stardoms-skys/"                    },
+    { name:"Stardom's Sync",        logo:"https://cdn.modrinth.com/data/iLPzEDlD/55a2d8c5dfa847d149b34dc54fa6f6952afcb31f.png",    description:"Real-life time & weather in Minecraft!",  url:"https://modrinth.com/mod/stardoms-sync/"                    },
+    { name:"Stardom's Client",      logo:"https://cdn.modrinth.com/data/eCxwIAgh/070f5bac4dc3ae760796d66458e006b7c81fd8ba.png",    description:"QoL & customization features!",           url:"https://modrinth.com/mod/stardoms-client/"                  },
+    { name:"Stardom's Dungeons",    logo:"https://cdn.modrinth.com/data/iX99Kymi/a8adfec3a25b5b801c0518feaf264d4b964c5554.png",    description:"Difficult end-game dungeons!",            url:"https://modrinth.com/mod/stardoms-dungeons/"                }
+  ],
+  apps: [
+    { name:"chatterbox",   logo:"https://chatterbox.stardomga.me/chatterbox.png",                                                                              description:"Connect with friends, share videos & pictures!", url:"https://chatterbox.stardomga.me",  badge:"new" },
+    { name:"Stardom Mods", logo:"https://mods.stardomga.me/images/favicon.png",                                                                                description:"Upload & download mods for your games!",        url:"https://mods.stardomga.me"                  },
+    { name:"DeskThing",    logo:"https://raw.githubusercontent.com/jordan-trempert/media/refs/heads/main/android-chrome-192x192.png",                          description:"Display and control your Spotify music!",       url:"https://deskthing.stardomga.me"             },
+    { name:"Moviewer",     logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/moviewer.png",                                                   description:"View, Rate, and comment on movies!",            url:"https://moviewer.stardomga.me"              }
+  ],
+  socials: [
+    { name:"chatterbox", logo:"https://chatterbox.stardomga.me/chatterbox.png",                                             description:"Social Platform", url:"https://chatterbox.stardomga.me/@stardom" },
+    { name:"Itch.io",    logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/itch.png",                     description:"Game Releases",   url:"https://stardomgames.itch.io/"             },
+    { name:"YouTube",    logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/youtube.png",                  description:"Video Content",   url:"https://www.youtube.com/channel/UCgmh2uIuUPxIep-qJ2WOEbg" },
+    { name:"Discord",    logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/discord.png",                  description:"Community Hub",   url:"https://discord.gg/CGqT9WX7sU"             },
+    { name:"X",          logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/x%20logo.png",                 description:"Updates",         url:"https://twitter.com/Stardom_Games"         },
+    { name:"GitHub",     logo:"https://github.com/jordan-trempert/media/blob/main/github.png?raw=true",                    description:"Source Code",     url:"https://github.com/stardomgames"           },
+    { name:"Patreon",    logo:"https://raw.githubusercontent.com/jordan-trempert/media/main/patreon.jpg",                  description:"Support Us",      url:"https://patreon.com/stardomgames"          }
+  ],
+  blog: [
+    { name:"JokerJack Roadmap", logo:"https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png", description:"JokerJack 1.5.0 Has Been Released!", content:"<h4>JokerJack 1.5.0 Has Been Released!</h4><p>Check the game page for full patch notes and updates. More content coming soon.</p>" }
+  ]
+};
 
-  // --- FUNCTIONS ---
-  function createImagePlaceholder(el, text) {
-      el.innerHTML = '';
-      const placeholder = document.createElement('div');
-      placeholder.className = 'img-placeholder rounded-2xl';
-      placeholder.textContent = text;
-      el.appendChild(placeholder);
+/* ─── SCROLLING BACKGROUND ─── */
+(function buildBg() {
+  const words = ['STARDOM','//','GAME','STUDIOS','//','STARDOM','GAME','//'];
+  const scroller = document.getElementById('bgScroller');
+  for (let r = 0; r < 6; r++) {
+    const row = document.createElement('div');
+    row.className = 'bg-row';
+    // duplicate so seamless loop works
+    const set = [...words, ...words];
+    row.innerHTML = set.map(w => `<span>${w}</span>`).join('');
+    scroller.appendChild(row);
   }
+})();
 
-  function typeWriter(element, text, callback) {
-      let i = 0;
-      element.innerHTML = '';
-      const cursor = document.createElement('span');
-      cursor.className = 'typing-cursor';
-      element.appendChild(cursor);
+/* ─── DUAL CURSOR (lerp) ─── */
+const ptr = document.getElementById('ptr'), ring = document.getElementById('ring');
+let mx=0, my=0, cx=0, cy=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function loop() {
+  cx += (mx-cx)*0.2; cy += (my-cy)*0.2;
+  rx += (mx-rx)*0.09; ry += (my-ry)*0.09;
+  ptr.style.left  = cx+'px'; ptr.style.top  = cy+'px';
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(loop);
+})();
 
-      function type() {
-          if (i < text.length) {
-              element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
-              i++;
-              setTimeout(type, 50);
-          } else {
-              if (callback) callback();
-          }
-      }
-      type();
-  }
+/* ─── PROGRESS BAR + SCROLL TOP ─── */
+const pbar = document.getElementById('pbar');
+const stBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  pbar.style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+  stBtn.classList.toggle('visible', d.scrollTop > 200);
+});
 
-  function animateCards(container) {
-       const cards = container.querySelectorAll('.project-card');
-       cards.forEach((card, index) => {
-          setTimeout(() => {
-              card.classList.add('visible');
-          }, index * 75);
-       });
-  }
+/* ─── CLOCK ─── */
+function tick() { document.getElementById('clk').textContent = new Date().toLocaleTimeString('en-US',{hour12:false}); }
+setInterval(tick, 1000); tick();
 
-  function createSection(title, items, containerId) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
+/* ─── COUNTER ─── */
+function animateCounter(el, target, dur=1200) {
+  const t0 = performance.now();
+  (function u(now) {
+    const p = Math.min((now-t0)/dur, 1), e = 1-Math.pow(1-p,4);
+    el.textContent = Math.round(e*target);
+    if (p<1) requestAnimationFrame(u);
+  })(t0);
+}
 
-      container.innerHTML = '';
+/* ─── TICKER ─── */
+const TICKER_ITEMS = [
+  '21 GAMES RELEASED','9 MINECRAFT MODS','4 APPLICATIONS',
+  'JOKERJACK 1.5.0 NOW LIVE','PERSPECTIVE REMASTERED — ON STEAM',
+  'JOIN OUR DISCORD','INDIE SINCE 2019'
+];
+function buildTicker() {
+  const d = [...TICKER_ITEMS,...TICKER_ITEMS];
+  return d.map(t=>`<div class="ticker-item"><span>▶</span>${t}</div>`).join('');
+}
 
-      const contentWrapper = document.createElement('div');
-      contentWrapper.className = 'p-4 md:p-8';
+/* ─── HOME ─── */
+function renderHome() {
+  document.getElementById('mount').innerHTML = `
+    <div class="panel active">
+      <div class="hero">
+        <div class="hero-sub">// EST. 2019 — INDIE GAME STUDIO</div>
+        <h1>
+          <span class="line1">STARDOM</span>
+          <span class="line2">GAME</span>
+          <span class="line3"><span class="glitch-wrap" data-text="STUDIOS">STUDIOS</span></span>
+        </h1>
+        <div class="data-row">
+          <div class="data-node"><span class="d-val" id="cg">0</span><span class="d-lbl">GAMES</span></div>
+          <div class="data-node"><span class="d-val" id="cm">0</span><span class="d-lbl">MODS</span></div>
+          <div class="data-node"><span class="d-val" id="ca">0</span><span class="d-lbl">APPS</span></div>
+        </div>
+        <div class="ticker-wrap"><div class="ticker-track">${buildTicker()}</div></div>
+        <div class="featured-row">
+          <div class="feat-label">▶ FEATURED RELEASE</div>
+          <a href="https://jokerjack.stardomga.me" target="_blank" rel="noopener noreferrer" class="feat-card int">
+            <img class="feat-img" src="https://img.itch.zone/aW1nLzIyODI0NTQ1LnBuZw==/315x250%23c/Sf3Klr.png" alt="JokerJack" onerror="this.style.display='none'">
+            <div class="feat-meta">
+              <div class="feat-name">JokerJack</div>
+              <div class="feat-desc">Balatro meets Blackjack — use wild Joker cards to bend the rules and outlast the dealer in this strategic card game. Version 1.5.0 now live.</div>
+              <div class="feat-cta">PLAY NOW →</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>`;
+  animateCounter(document.getElementById('cg'), ds.games.length, 1400);
+  animateCounter(document.getElementById('cm'), ds.mods.length,  1000);
+  animateCounter(document.getElementById('ca'), ds.apps.length,   700);
+  att();
+}
 
-      const titleEl = document.createElement('h2');
-      titleEl.className = 'title-font text-3xl font-bold text-white mb-6 glow';
-      contentWrapper.appendChild(titleEl);
+/* ─── GRID ─── */
+const SEARCHABLE = ['games','mods','apps'];
+const LABELS = { games:'GAMES', mods:'MODS', apps:'APPS', socials:'NETWORK', blog:'LOGS' };
 
-      const grid = document.createElement('div');
-      const isSocial = containerId === 'socials';
-      const isBlog = containerId === 'blog';
+function renderGrid(cat) {
+  const arr = ds[cat];
+  const sh = SEARCHABLE.includes(cat) ? `
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="search-input" id="si" type="text" placeholder="Search ${LABELS[cat]}…" autocomplete="off">
+    </div>
+    <div class="no-results" id="nr">NO RESULTS FOUND</div>` : '';
 
-      let gridClasses = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4';
-      if (isSocial) {
-          gridClasses = 'grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-4';
-      } else if (isBlog) {
-          gridClasses = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
-      }
-      grid.className = gridClasses;
+  document.getElementById('mount').innerHTML = `
+    <div class="panel active">
+      <div class="section-head">
+        <h2>${LABELS[cat]}</h2>
+        <span class="count" id="ec">${arr.length} ENTRIES</span>
+      </div>
+      ${sh}
+      <div class="bento" id="bento"></div>
+    </div>`;
 
-      items.forEach((item) => {
-          const cardWrapper = document.createElement(isBlog ? 'div' : 'a');
+  renderCards(arr, cat);
 
-          if (!isBlog) {
-            cardWrapper.href = item.url || '#';
-            cardWrapper.target = '_blank';
-            cardWrapper.rel = 'noopener noreferrer';
-          } else {
-            cardWrapper.classList.add('cursor-pointer');
-            cardWrapper.addEventListener('click', () => {
-              openPopup(item.name, item.content);
-            });
-          }
-
-          cardWrapper.className += ' project-card-wrapper';
-
-          const card = document.createElement('div');
-          const cardClasses = isSocial
-              ? 'project-card p-4 items-center justify-center aspect-square'
-              : 'project-card p-4 items-center text-center h-full';
-          card.className = cardClasses;
-
-          const imgContainer = document.createElement('div');
-          imgContainer.className = 'w-16 h-16 mb-3 flex-shrink-0 bg-black/50 rounded-2xl p-1 overflow-hidden';
-
-          const img = document.createElement('img');
-          img.src = item.logo;
-          img.alt = `${item.name} Logo`;
-          img.className = 'w-full h-full object-contain';
-          img.onerror = () => createImagePlaceholder(imgContainer, item.name.substring(0, 3));
-          imgContainer.appendChild(img);
-
-          const name = document.createElement('p');
-          name.className = 'text-sm font-bold text-white';
-          name.textContent = item.name;
-
-          card.appendChild(imgContainer);
-          card.appendChild(name);
-
-          if (!isSocial && item.description) {
-              const description = document.createElement('p');
-              description.className = 'text-xs text-gray-400 mt-2 flex-grow';
-              description.textContent = item.description;
-              card.appendChild(description);
-          }
-
-          cardWrapper.appendChild(card);
-          grid.appendChild(cardWrapper);
-      });
-
-      contentWrapper.appendChild(grid);
-      container.appendChild(contentWrapper);
-
-      typeWriter(titleEl, `// ${title}`, () => {
-          animateCards(container);
-      });
-  }
-
-  // --- POPUP MODAL ---
-  const popupModal = document.getElementById('popup-modal');
-  const popupTitle = document.getElementById('popup-title');
-  const popupContent = document.getElementById('popup-content');
-  const closePopupButton = document.getElementById('close-popup');
-
-  function openPopup(title, content) {
-      popupTitle.textContent = title;
-      popupContent.innerHTML = content;
-      popupModal.classList.remove('hidden');
-  }
-
-  function closePopup() {
-      popupModal.classList.add('hidden');
-  }
-
-  if(popupModal && closePopupButton) {
-    closePopupButton.addEventListener('click', closePopup);
-    popupModal.addEventListener('click', (e) => {
-        // Close if clicked on the backdrop
-        if (e.target === popupModal) {
-            closePopup();
-        }
+  if (SEARCHABLE.includes(cat)) {
+    const si = document.getElementById('si');
+    si.addEventListener('input', () => {
+      const q = si.value.toLowerCase().trim();
+      const f = arr.filter(o => o.name.toLowerCase().includes(q) || o.description.toLowerCase().includes(q));
+      renderCards(f, cat);
+      document.getElementById('ec').textContent = f.length + ' ENTRIES';
+      document.getElementById('nr').style.display = f.length === 0 ? 'block' : 'none';
     });
+    si.focus();
   }
+}
 
+function badgeHtml(b) {
+  if (!b) return '';
+  return `<span class="badge badge-${b}">${{new:'NEW',hot:'HOT',steam:'STEAM',vr:'VR',xbox:'XBOX'}[b]}</span>`;
+}
 
-  // --- INITIALIZATION & NAVIGATION ---
-  document.addEventListener('DOMContentLoaded', () => {
-      const spotlight = document.querySelector('.spotlight');
-      document.addEventListener('mousemove', (e) => {
-          spotlight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      });
+function renderCards(arr, cat) {
+  const bento = document.getElementById('bento');
+  if (!bento) return;
+  bento.innerHTML = arr.map((o,i) => `
+    <a class="card int" style="animation-delay:${i*.04}s"
+       ${cat==='blog'
+         ? `href="#" onclick="pop(${ds.blog.indexOf(o)});return false;"`
+         : `href="${o.url}" target="_blank" rel="noopener noreferrer"`}>
+      ${badgeHtml(o.badge)}
+      <div class="c-media">
+        <img src="${o.logo}" alt="${o.name}" onerror="this.style.display='none'" loading="lazy">
+      </div>
+      <div class="c-title">${o.name}</div>
+      <div class="c-desc">${o.description}</div>
+    </a>`).join('');
+  att();
+}
 
-      const navLinks = document.querySelectorAll('.nav-link');
-      const contentPanels = document.querySelectorAll('.content-panel');
+/* ─── NAV ─── */
+function nav(v, close=true) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view===v));
+  if (close) closeMobileMenu();
+  v==='home' ? renderHome() : renderGrid(v);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 
-      function switchPanel(targetId) {
-          navLinks.forEach(l => {
-              l.classList.toggle('active', l.dataset.target === targetId);
-          });
+/* ─── MODAL ─── */
+function pop(i) {
+  const p = ds.blog[i];
+  document.getElementById('mh').textContent = p.name;
+  document.getElementById('mc').innerHTML = p.content;
+  document.getElementById('ovr').classList.add('open');
+}
+function closeModal() { document.getElementById('ovr').classList.remove('open'); }
+document.getElementById('cls').addEventListener('click', closeModal);
+document.getElementById('ovr').addEventListener('click', e => { if (e.target.id==='ovr') closeModal(); });
 
-          contentPanels.forEach(panel => {
-              if (panel.id === targetId) {
-                  panel.classList.add('active');
-                  if (targetId !== 'home') {
-                      // Check if the panel is empty before creating content
-                      if(panel.innerHTML.trim() === '') {
-                        const sectionData = data[targetId];
-                        createSection(targetId.toUpperCase(), sectionData, targetId);
-                      }
-                  }
-              } else {
-                  panel.classList.remove('active');
-              }
-          });
-      }
+/* ─── KEYBOARD ─── */
+document.addEventListener('keydown', e => {
+  if (e.target.tagName==='INPUT') return;
+  ({'1':'home','2':'games','3':'mods','4':'apps','5':'socials','6':'blog'})[e.key] && nav(({'1':'home','2':'games','3':'mods','4':'apps','5':'socials','6':'blog'})[e.key]);
+  e.key==='Escape' && closeModal();
+});
 
-      navLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
-              e.preventDefault();
-              switchPanel(link.dataset.target);
-          });
-      });
+/* ─── MOBILE MENU ─── */
+const hamBtn = document.getElementById('hamBtn');
+const navMenu = document.getElementById('navMenu');
+function closeMobileMenu() { navMenu.classList.remove('open'); hamBtn.classList.remove('open'); }
+hamBtn.addEventListener('click', () => { navMenu.classList.toggle('open'); hamBtn.classList.toggle('open'); });
+
+/* ─── HOVER ─── */
+function onEnter() { ptr.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { ptr.classList.remove('hover'); ring.classList.remove('hover'); }
+function att() {
+  document.querySelectorAll('.int').forEach(el => {
+    el.removeEventListener('mouseenter', onEnter);
+    el.removeEventListener('mouseleave', onLeave);
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
   });
+}
+
+/* ─── NAV WIRING ─── */
+document.querySelectorAll('.nav-btn').forEach(btn =>
+  btn.addEventListener('click', e => nav(e.currentTarget.dataset.view))
+);
+
+/* ─── INIT ─── */
+nav('home');
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
